@@ -14,7 +14,7 @@ import time
 import tensorflow as tf
 import h5py
 
-def main();
+def main():
 	cifar10_dir = 'cifar-10-batches-py'
 	X_train, y_train, X_test, y_test = load_CIFAR10(cifar10_dir)
 	print(X_train.shape)
