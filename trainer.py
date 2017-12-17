@@ -9,6 +9,7 @@ import tensorflow.contrib.slim as slim
 import os
 import time
 import tensorflow as tf
+from load_data import load_CIFAR10
 
 def main():
 	cifar10_dir = 'cifar-10-batches-py'
