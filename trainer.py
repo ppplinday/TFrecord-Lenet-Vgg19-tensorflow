@@ -18,6 +18,8 @@ def main():
 	print(y_train.shape)
 	print(X_test.shape)
 	print(y_test.shape)
+	print(X_train[0])
+	print(y_train[0:10])
 
 if __name__ == '__main__':
 	main()
