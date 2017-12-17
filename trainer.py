@@ -16,8 +16,8 @@ def main():
 	X_train, y_train, X_test, y_test = load_CIFAR10(cifar10_dir)
 	print(X_train.shape)
 	print(y_train.shape)
-	print(X_test)
-	print(y_test)
+	print(X_test.shape)
+	print(y_test.shape)
 
 if __name__ == '__main__':
 	main()
