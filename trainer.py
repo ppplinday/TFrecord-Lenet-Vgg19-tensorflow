@@ -4,15 +4,11 @@ from __future__ import print_function
 
 from six.moves import xrange
 
-from util import log
-from pprint import pprint
-
 import tensorflow.contrib.slim as slim
 
 import os
 import time
 import tensorflow as tf
-import h5py
 
 def main():
 	cifar10_dir = 'cifar-10-batches-py'
