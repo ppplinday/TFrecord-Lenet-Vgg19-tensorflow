@@ -49,10 +49,10 @@ class Model(object):
         print('[name {}] shape: {}'.format('softmax', net.shape))
 
         self.prediction = tf.argmax(net, 1)
-        self.correct_prediction = tf.equal(tf.argmax(net, 1), tf.argmax(self.input_labels, 1))
+        self.correct_prediction = tf.equal(tf.argmax(net, 1), tf.argmax(self.labels, 1))
         self.train_accuracy = tf.reduce_mean(tf.cast(self.correct_prediction, "float"))
 
-        self.loss = slim.losses.softmax_cross_entropy(self.train_digits, self.input_labels)
+        self.loss = slim.losses.softmax_cross_entropy(net, self.labels)
         self.train_op = tf.train.AdamOptimizer(self.learning_rate).minimize(self.loss)
 
     def run_single_step(self, images, labels):
