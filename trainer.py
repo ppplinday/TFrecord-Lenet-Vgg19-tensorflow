@@ -14,7 +14,7 @@ from model import Model
 
 class Trainer:
 
-	def init(self, network, dataset_xtrain, dataset_ytrain):
+	def __init__(self, network, dataset_xtrain, dataset_ytrain):
 		self.learning_rate = 1e-3
 		self.batch_size = 32
 		self.num_epoch = 50
