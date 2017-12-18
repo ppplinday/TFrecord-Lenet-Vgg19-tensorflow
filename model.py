@@ -31,7 +31,7 @@ class Model(object):
     	net = conv2d(self.images, 6, name='conv1')
     	net = max_pool(net, name='max_pool1')
     	net = conv2d(net, 16, name='conv2')
-    	net = max_pool1(net, name='max_pool2')
+    	net = max_pool(net, name='max_pool2')
     	net = conv2d(net, 120, name = 'conv3')
     	net = tf.layers.flatten(net, dtype='float32')
     	net = fc(net, 84, name='fc1')
