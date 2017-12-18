@@ -49,7 +49,7 @@ def main():
 	lenet = Model()
 	parameter_path = 'checkpoint/variable.ckpt'
 
-	saver = tf.tf.train.Saver()
+	saver = tf.train.Saver()
 	if os.path.exists(parameter_path):
 		saver.restore(parameter_path)
 	else:
