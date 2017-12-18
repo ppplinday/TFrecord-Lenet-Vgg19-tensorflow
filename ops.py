@@ -1,7 +1,7 @@
 import tensorflow as tf
 import tensorflow.contrib.layers as layers
 
-def conv2d(input, output_shape, k_h=5, k_w=5, stddev=0.02, padding='VAILD', name='conv2d'):
+def conv2d(input, output_shape, k_h=5, k_w=5, stddev=0.02, padding='VALID', name='conv2d'):
 	with tf.variable_scope(name):
 		w = tf.get_variable('w', [k_h, k_w, input.get_shape()[-1], output_shape], 
 			initializer=tf.truncated_normal_initializer(stddev=stddev))
