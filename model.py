@@ -39,7 +39,7 @@ class Model(object):
         print('[name {}] shape: {}'.format('p2', net.shape))
     	net = conv2d(net, 120, name = 'conv3')
         print('[name {}] shape: {}'.format('conv3', net.shape))
-    	net = tf.layers.flatten(net, dtype='float32')
+    	net = tf.layers.flatten(net)
         print('[name {}] shape: {}'.format('fff', net.shape))
     	net = fc(net, 84, name='fc1')
         print('[name {}] shape: {}'.format('fc1', net.shape))
