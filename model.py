@@ -24,7 +24,7 @@ class Model(object):
     def build(self, is_train=True):
 
         self.input_image = tf.placeholder(tf.float32, [None, 3072])
-        self.images = tf.reshape(self.input_image, [-1, 32, 32, 1])
+        self.images = tf.reshape(self.input_image, [-1, 32, 32, 3])
         self.input_label = tf.placeholder(tf.float32, [None, 10])
         self.labels = tf.cast(self.input_label, tf.int32)
 
