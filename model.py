@@ -28,6 +28,7 @@ class Model(object):
         self.input_label = tf.placeholder(tf.float32, [None, 10])
         self.labels = tf.cast(self.input_label, tf.int32)
 
+        print('[name {}] shape: {}'.format('init', self.images.shape))
     	net = conv2d(self.images, 6, name='conv1')
         print('[name {}] shape: {}'.format('conv1', net.shape))
     	net = max_pool(net, name='max_pool1')
