@@ -12,7 +12,7 @@ import tensorflow as tf
 from load_data import load_CIFAR10
 from model import Model
 
-class Trainer(object):
+class Trainer:
 
 	def init(self, network, dataset_xtrain, dataset_ytrain):
 		self.learning_rate = 1e-3

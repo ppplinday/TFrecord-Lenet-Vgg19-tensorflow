@@ -8,7 +8,7 @@ import tensorflow.contrib.slim as slim
 from ops import conv2d, max_pool, fc
 
 
-class Model(object):
+class Model:
 
     def __init__(self,
                  is_train=True):
