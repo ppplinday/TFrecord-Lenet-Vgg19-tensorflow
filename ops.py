@@ -17,7 +17,7 @@ def max_pool(input, name):
 
 def fc(input, output_shape, stddev=0.02, name='fc'):
 	with tf.variable_scope(name):
-		w = tf.get_variable('w', [input.shape[0], output_shape], 
+		w = tf.get_variable('w', [input.shape[-1], output_shape], 
 			initializer=tf.truncated_normal_initializer(stddev=stddev))
 		biases = tf.get_variable('biases', [output_shape], initializer=tf.constant_initializer(0.0))
 		f = input.dot(w)
