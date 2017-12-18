@@ -5,7 +5,7 @@ def conv2d(input, output_shape, k_h=5, k_w=5, stddev=0.02, padding='VALID', name
 	with tf.variable_scope(name):
 		w = tf.get_variable('w', [k_h, k_w, input.get_shape()[-1], output_shape], 
 			initializer=tf.truncated_normal_initializer(stddev=stddev))
-		conv = tf.nn.conv2d(input, w, strides=[1, 2, 2, 1], padding=padding)
+		conv = tf.nn.conv2d(input, w, strides=[1, 1, 1, 1], padding=padding)
 
 		biases = tf.get_variable('biases', [output_shape], initializer=tf.constant_initializer(0.0))
 		conv = tf.nn.bias_add(conv, biases)
