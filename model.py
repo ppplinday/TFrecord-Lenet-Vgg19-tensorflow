@@ -5,7 +5,7 @@ from __future__ import print_function
 
 import tensorflow as tf
 import tensorflow.contrib.slim as slim
-from ops import conv2d, max_pool 
+from ops import conv2d, max_pool, fc
 
 
 class Model(object):
