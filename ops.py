@@ -8,7 +8,7 @@ def conv2d(input, output_shape, k_h=5, k_w=5, stddev=0.02, padding='VALID', name
 		conv = tf.nn.conv2d(input, w, strides=[1, 2, 2, 1], padding=padding)
 
 		biases = tf.get_variable('biases', [output_shape], initializer=tf.constant_initializer(0.0))
-		conv = tf.nn.biad_add(conv, biases)
+		conv = tf.nn.bias_add(conv, biases)
 
 	return conv
 
