@@ -28,7 +28,7 @@ class Model(object):
         self.input_label = tf.placeholder(tf.float32, [None, 10])
         self.labels = tf.cast(self.input_label, tf.int32)
 
-    	net = conv2d(self.image, 6, name='conv1')
+    	net = conv2d(self.images, 6, name='conv1')
     	net = max_pool(net, name='max_pool1')
     	net = conv2d(net, 16, name='conv2')
     	net = max_pool1(net, name='max_pool2')
