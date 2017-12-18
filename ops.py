@@ -21,6 +21,6 @@ def fc(input, output_shape, stddev=0.02, name='fc'):
 			initializer=tf.truncated_normal_initializer(stddev=stddev))
 		biases = tf.get_variable('biases', [output_shape], initializer=tf.constant_initializer(0.0))
 		f = tf.matmul(input, w)
-		f = tf.nn.biad_add(f, biases)
+		f = tf.nn.bias_add(f, biases)
 
 	return f
