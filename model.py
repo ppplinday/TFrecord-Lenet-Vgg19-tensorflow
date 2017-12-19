@@ -21,15 +21,15 @@ class Model:
         self.learning_rate = 1e-3
 
         with tf.variable_scope("Lenet") as scope:
-            self.train_digits = self.construct_net(True)
+            self.train_digits = self.build(True)
             scope.reuse_variables()
-            self.pred_digits = self.construct_net(False)
+            self.pred_digits = self.build(False)
 
-        self.prediction = tf.argmax(net, 1)
-        self.correct_prediction = tf.equal(tf.argmax(net, 1), tf.argmax(self.labels, 1))
+        self.prediction = tf.argmax(self.pred_digits, 1)
+        self.correct_prediction = tf.equal(tf.argmax(self.pred_digits, 1), tf.argmax(self.labels, 1))
         self.train_accuracy = tf.reduce_mean(tf.cast(self.correct_prediction, "float"))
 
-        self.loss = slim.losses.softmax_cross_entropy(net, self.labels)
+        self.loss = slim.losses.softmax_cross_entropy(self.train_digits, self.labels)
         self.train_op = tf.train.AdamOptimizer(self.learning_rate).minimize(self.loss)
 
 
