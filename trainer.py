@@ -20,6 +20,9 @@ class Trainer:
 		self.num_epoch = 50
 		self.num_sample = 50000
 		self.model = network
+		self.sess = sess
+		self.dataset_xtrain = dataset_xtrain
+		self.dataset_ytrain = dataset_ytrain
 
 		self.train()
 
