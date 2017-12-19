@@ -14,12 +14,12 @@ from model import Model
 
 class Trainer:
 
-	def __init__(self, network, dataset_xtrain, dataset_ytrain):
+	def __init__(self, network, sess, dataset_xtrain, dataset_ytrain):
 		self.learning_rate = 1e-3
 		self.batch_size = 32
 		self.num_epoch = 50
 		self.num_sample = 50000
-		self.model = Model()
+		self.model = network
 
 		train()
 
@@ -30,9 +30,11 @@ class Trainer:
 				start = iter * 32
 				batch = dataset_xtrain[start, start + 32]
 				label = dataset_ytrain[start, start + 32]
-				loss, accurary = network.run_single_step(batch, label)
+				sess.run(self.model.train_op, feed_dict={self.model.input_image: batch, self.model.input_label})
 
 			if epoch % 5 == 0:
+				loss, accurary = sess.run(self.model.loss, self.model.train_accuracy, 
+					feed_dict={self.model.input_image: batch, self.model.input_label})
 				print('[Epoch {}] Loss: {} Accurary: {}'.format(epoch, loss, accurary))
 
 		print('Done! End of training!')
@@ -55,7 +57,7 @@ def main():
 	else:
 		sess.run(tf.initialize_all_variables())
 
-	train = Trainer(lenet, X_train, y_train)
+	train = Trainer(lenet, sess, X_train, y_train)
 
 
 if __name__ == '__main__':
