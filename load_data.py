@@ -6,7 +6,7 @@ import os
 def load_CIFAR_batch(filename):
     
     with open(filename, 'rb') as f:
-        datadict = p.load(f)
+        datadict = p.load(f, encoding='latin1')
         X = datadict['data']
         Y = datadict['labels']
         X = X.reshape(10000, 3, 32, 32).transpose(0, 2, 3, 1).astype("float")
