@@ -18,8 +18,8 @@ class Model:
 
         self.build()
 
-        self.sess = tf.InteractiveSession()
-        self.sess.run(tf.global_variables_initializer()) 
+        self.sess = tf.Session()
+        self.sess.run(tf.initialize_all_variable()) 
 
     def build(self, is_train=True):
 
