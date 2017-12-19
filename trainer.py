@@ -21,7 +21,7 @@ class Trainer:
 		self.num_sample = 50000
 		self.model = network
 
-		train()
+		self.train()
 
 	def train():
 
