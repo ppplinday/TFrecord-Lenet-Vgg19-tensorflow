@@ -58,7 +58,7 @@ class Model:
         
         with slim.arg_scope([slim.conv2d], padding='VALID', weights_initializer=tf.truncated_normal_initializer(stddev=0.02)):
             print('[name {}] shape: {}'.format('init', self.images.shape))
-            net = slim.conv2d(self.input_images,6,[5,5],1,scope='conv1')
+            net = slim.conv2d(self.images,6,[5,5],1,scope='conv1')
             print('[name {}] shape: {}'.format('conv1', net.shape))
             net = slim.max_pool2d(net, [2, 2], scope='pool2')
             print('[name {}] shape: {}'.format('p2', net.shape))
