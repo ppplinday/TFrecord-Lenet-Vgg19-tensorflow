@@ -25,8 +25,8 @@ class Trainer:
 
 	def train(self):
 
-		for epoch in range(num_epoch):
-			for iter in range(num_sample // batch_size):
+		for epoch in range(self.num_epoch):
+			for iter in range(self.num_sample // self.batch_size):
 				start = iter * 32
 				batch = dataset_xtrain[start, start + 32]
 				label = dataset_ytrain[start, start + 32]
