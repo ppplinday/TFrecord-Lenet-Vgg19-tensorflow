@@ -30,11 +30,11 @@ class Trainer:
 				start = iter * 32
 				batch = dataset_xtrain[start, start + 32]
 				label = dataset_ytrain[start, start + 32]
-				sess.run(self.model.train_op, feed_dict={self.model.input_image: batch, self.model.input_label})
+				sess.run(self.model.train_op, feed_dict={self.model.input_image: batch, self.model.input_label: label})
 
 			if epoch % 5 == 0:
 				loss, accurary = sess.run(self.model.loss, self.model.train_accuracy, 
-					feed_dict={self.model.input_image: batch, self.model.input_label})
+					feed_dict={self.model.input_image: batch, self.model.input_label: label})
 				print('[Epoch {}] Loss: {} Accurary: {}'.format(epoch, loss, accurary))
 
 		print('Done! End of training!')
