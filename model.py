@@ -19,7 +19,7 @@ class Model:
         self.build()
 
         self.sess = tf.Session()
-        self.sess.run(tf.initialize_all_variable()) 
+        self.sess.run(tf.initialize_all_variables())
 
     def build(self, is_train=True):
 
