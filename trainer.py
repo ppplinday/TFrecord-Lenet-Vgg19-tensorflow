@@ -28,8 +28,8 @@ class Trainer:
 		for epoch in range(self.num_epoch):
 			for iter in range(self.num_sample // self.batch_size):
 				start = iter * 32
-				batch = dataset_xtrain[start, start + 32]
-				label = dataset_ytrain[start, start + 32]
+				batch = self.dataset_xtrain[start, start + 32]
+				label = self.dataset_ytrain[start, start + 32]
 				sess.run(self.model.train_op, feed_dict={self.model.input_image: batch, self.model.input_label: label})
 
 			if epoch % 5 == 0:
