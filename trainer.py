@@ -23,7 +23,7 @@ class Trainer:
 
 		self.train()
 
-	def train():
+	def train(self):
 
 		for epoch in range(num_epoch):
 			for iter in range(num_sample // batch_size):

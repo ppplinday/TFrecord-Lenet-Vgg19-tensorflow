@@ -73,6 +73,6 @@ class Model:
             net = slim.fully_connected(net, 84, scope='fc7')
             print('[name {}] shape: {}'.format('fc7', net.shape))
             digits = slim.fully_connected(net, 10, scope='fc8')
-            print('[name {}] shape: {}'.format('fc8', net.shape))
+            print('[name {}] shape: {}'.format('fc8', digits.shape))
         return digits
 
