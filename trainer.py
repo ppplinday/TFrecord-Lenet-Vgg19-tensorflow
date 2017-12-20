@@ -40,8 +40,7 @@ class Trainer:
 				self.sess.run(self.model.train_op, feed_dict={self.model.input_image: batch, self.model.input_label: label})
 
 			if epoch % 5 == 0:
-				loss, accurary = self.sess.run(self.model.loss, self.model.train_accuracy, 
-					feed_dict={self.model.input_image: batch, self.model.input_label: label})
+				loss, accurary = self.sess.run(self.model.loss, self.model.train_accuracy)
 				print('[Epoch {}] Loss: {} Accurary: {}'.format(epoch, loss, accurary))
 
 		print('Done! End of training!')
