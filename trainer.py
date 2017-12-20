@@ -8,6 +8,7 @@ import tensorflow.contrib.slim as slim
 
 import os
 import time
+import numpy as np
 import tensorflow as tf
 from load_data import load_CIFAR10
 from model import Model
