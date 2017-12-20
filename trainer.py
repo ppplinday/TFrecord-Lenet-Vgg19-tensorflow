@@ -32,7 +32,9 @@ class Trainer:
 			for iter in range(self.num_sample // self.batch_size):
 				start = iter * 32
 				batch = self.dataset_xtrain[start:start + 32]
-				label = self.dataset_ytrain[start:start + 32]
+				temp = self.dataset_ytrain[start:start + 32]
+				label = np.zeros((32, 10))
+				label = [label[i][temp[i]] = 1 for i in range(32)]
 				self.sess.run(self.model.train_op, feed_dict={self.model.input_image: batch, self.model.input_label: label})
 
 			if epoch % 5 == 0:
