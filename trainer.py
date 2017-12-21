@@ -60,7 +60,7 @@ def main():
 	paremeter = "checkpoint"
 
 	saver = tf.train.Saver()
-	if os.path.exists(parameter):
+	if os.path.exists("checkpoint"):
 		saver.restore(parameter_path)
 		print('loaded the weight')
 	else:
