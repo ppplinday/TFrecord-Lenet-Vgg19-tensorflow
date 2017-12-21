@@ -15,7 +15,7 @@ from model import Model
 
 class Trainer:
 
-	def __init__(self, network, sess, dataset_xtrain, dataset_ytrain):
+	def __init__(self, network, sess, saver, dataset_xtrain, dataset_ytrain):
 		self.learning_rate = 1e-3
 		self.batch_size = 32
 		self.num_epoch = 50
@@ -43,7 +43,7 @@ class Trainer:
 				loss, accurary = self.sess.run([self.model.loss, self.model.train_accuracy],
 					feed_dict={self.model.input_image: batch, self.model.input_label: label})
 				print('[Epoch {}] Loss: {} Accurary: {}'.format(epoch, loss, accurary))
-		save_path = saver.save(sess, parameter_path)
+		save_path = self.saver.save(sess, parameter_path)
 
 		print('Done! End of training!')
 
@@ -63,9 +63,9 @@ def main():
 	if os.path.exists(parameter_path):
 		saver.restore(parameter_path)
 	else:
-		sess.run(tf.initialize_all_variables())
+		sess.run(tf.global_variables_initializer())
 
-	train = Trainer(lenet, sess, X_train, y_train)
+	train = Trainer(lenet, sess, saver, X_train, y_train)
 
 
 if __name__ == '__main__':
