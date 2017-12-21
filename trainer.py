@@ -66,8 +66,8 @@ def main():
 		sess.run(tf.global_variables_initializer())
 		print('init all the weight')
 
-	train = Trainer(lenet, sess, saver, X_train, y_train)
-	save_path = saver.save(sess, parameter_path)
+	#train = Trainer(lenet, sess, saver, X_train, y_train)
+	#save_path = saver.save(sess, parameter_path)
 
 
 if __name__ == '__main__':
