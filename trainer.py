@@ -61,7 +61,7 @@ def main():
 
 	saver = tf.train.Saver()
 	if os.path.exists("checkpoint"):
-		saver.restore(parameter_path)
+		saver.restore(sess, parameter_path)
 		print('loaded the weight')
 	else:
 		sess.run(tf.global_variables_initializer())
