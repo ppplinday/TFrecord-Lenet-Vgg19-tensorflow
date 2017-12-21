@@ -60,8 +60,8 @@ def main():
 
 	saver = tf.train.Saver()
 	if os.path.exists(parameter_path):
-		sess.run(tf.global_variables_initializer())
-		#saver.restore(parameter_path)
+		#sess.run(tf.global_variables_initializer())
+		saver.restore(parameter_path)
 	else:
 		sess.run(tf.global_variables_initializer())
 
