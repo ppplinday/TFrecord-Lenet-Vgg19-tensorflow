@@ -56,7 +56,7 @@ def main():
 
 	sess = tf.Session()
 	lenet = Model()
-	parameter_path = 'checkpoint/variable.ckpt'
+	parameter_path = "checkpoint/variable.ckpt"
 
 	saver = tf.train.Saver()
 	if os.path.exists(parameter_path):
