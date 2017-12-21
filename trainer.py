@@ -43,7 +43,7 @@ class Trainer:
 				loss, accurary = self.sess.run([self.model.loss, self.model.train_accuracy],
 					feed_dict={self.model.input_image: batch, self.model.input_label: label})
 				print('[Epoch {}] Loss: {} Accurary: {}'.format(epoch, loss, accurary))
-		save_path = self.saver.save(sess, parameter_path)
+		save_path = self.saver.save(self.sess, parameter_path)
 
 		print('Done! End of training!')
 
