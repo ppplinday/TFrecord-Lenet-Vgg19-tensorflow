@@ -57,9 +57,10 @@ def main():
 	sess = tf.Session()
 	lenet = Model()
 	parameter_path = "checkpoint/variable.ckpt"
+	paremeter_path_restore = "checkpoint"
 
 	saver = tf.train.Saver()
-	if os.path.exists(parameter_path):
+	if os.path.exists(parameter_path_restore):
 		saver.restore(parameter_path)
 		print('loaded the weight')
 	else:
