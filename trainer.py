@@ -43,7 +43,6 @@ class Trainer:
 				loss, accurary = self.sess.run([self.model.loss, self.model.train_accuracy],
 					feed_dict={self.model.input_image: batch, self.model.input_label: label})
 				print('[Epoch {}] Loss: {} Accurary: {}'.format(epoch, loss, accurary))
-		save_path = self.saver.save(self.sess, parameter_path)
 
 		print('Done! End of training!')
 
@@ -67,6 +66,7 @@ def main():
 		sess.run(tf.global_variables_initializer())
 
 	train = Trainer(lenet, sess, saver, X_train, y_train)
+	save_path = saver.save(sess, parameter_path)
 
 
 if __name__ == '__main__':
