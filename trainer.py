@@ -18,7 +18,7 @@ class Trainer:
 	def __init__(self, network, sess, saver, dataset_xtrain, dataset_ytrain):
 		self.learning_rate = 1e-3
 		self.batch_size = 32
-		self.num_epoch = 50
+		self.num_epoch = 5
 		self.num_sample = 50000
 		self.model = network
 		self.sess = sess
