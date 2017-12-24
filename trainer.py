@@ -12,6 +12,7 @@ import numpy as np
 import tensorflow as tf
 from load_data import load_CIFAR10
 from model import Model
+from cifar10_model import Model_cifar10
 import config
 
 class Trainer:
@@ -56,20 +57,21 @@ def main():
 	print(y_test.shape)
 
 	sess = tf.Session()
-	lenet = Model()
+	#lenet = Model()
+	lenet = Model_cifar10()
 	parameter_path = "checkpoint/variable.ckpt"
 	path_exists = "checkpoint"
 
-	saver = tf.train.Saver()
-	if os.path.exists(path_exists):
-		saver.restore(sess, parameter_path)
-		print('loaded the weight')
-	else:
-		sess.run(tf.global_variables_initializer())
-		print('init all the weight')
+	# saver = tf.train.Saver()
+	# if os.path.exists(path_exists):
+	# 	saver.restore(sess, parameter_path)
+	# 	print('loaded the weight')
+	# else:
+	# 	sess.run(tf.global_variables_initializer())
+	# 	print('init all the weight')
 
-	train = Trainer(lenet, sess, saver, X_train, y_train)
-	save_path = saver.save(sess, parameter_path)
+	# train = Trainer(lenet, sess, saver, X_train, y_train)
+	# save_path = saver.save(sess, parameter_path)
 
 
 if __name__ == '__main__':

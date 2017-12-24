@@ -5,6 +5,7 @@ import tensorflow.contrib.slim as slim
 
 from load_data import load_CIFAR10
 from model import Model
+from cifar10_model import Model_cifar10
 
 def main():
 	cifar10_dir = 'cifar-10-batches-py'
@@ -14,7 +15,8 @@ def main():
 		label[i][y_test[i]] = 1
 
 	sess = tf.Session()
-	model = Model()
+	#model = Model()
+	mndel = Model_cifar10()
 	parameter_path = "checkpoint/variable.ckpt"
 
 	saver = tf.train.Saver()
