@@ -3,6 +3,9 @@ import numpy as np
 import tensorflow as tf
 import tensorflow.contrib.slim as slim
 
+from load_data import load_CIFAR10
+from model import Model
+
 def main():
 	cifar10_dir = 'cifar-10-batches-py'
 	X_train, y_train, X_test, y_test = load_CIFAR10(cifar10_dir)
