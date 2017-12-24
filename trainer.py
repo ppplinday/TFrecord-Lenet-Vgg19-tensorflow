@@ -63,7 +63,7 @@ def main():
 	parameter_path = "checkpoint/variable.ckpt"
 	path_exists = "checkpoint"
 
-	X_train = list(map(lambda img: imresize(img, 224), X_train))
+	X_train = imresize(X_train, (224, 224))
 	print(X_train.shape)
 
 	# saver = tf.train.Saver()

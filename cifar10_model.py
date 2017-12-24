@@ -15,7 +15,7 @@ class Model_cifar10:
         self.batch_size = 32
         self.learning_rate = 1e-3
 
-        with tf.variable_scope("Lenet") as scope:
+        with tf.variable_scope("Vgg19") as scope:
             self.train_digits = self.build(True)
             scope.reuse_variables()
             self.pred_digits = self.build(False)
