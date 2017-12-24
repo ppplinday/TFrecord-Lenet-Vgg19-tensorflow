@@ -7,8 +7,8 @@ class Model_cifar10:
     def __init__(self,
                  is_train=True):
 
-        self.input_image = tf.placeholder(tf.float32, [None, 32, 32, 3])
-        self.images = tf.reshape(self.input_image, [-1, 32, 32, 3])
+        self.input_image = tf.placeholder(tf.float32, [None, 224, 224, 3])
+        self.images = tf.reshape(self.input_image, [-1, 224, 224, 3])
         self.input_label = tf.placeholder(tf.float32, [None, 10])
         self.labels = tf.cast(self.input_label, tf.int32)
 
@@ -31,15 +31,63 @@ class Model_cifar10:
     def build(self, is_train=True):
 
         with slim.arg_scope([slim.conv2d], padding='VALID', weights_initializer=tf.truncated_normal_initializer(stddev=0.02)):
-            net1 = slim.conv2d(self.images, 4, [3, 3], 1, padding='SAME', scope='conv11')
-            print(net1.shape)
-            net = slim.conv2d(self.images,32,[5,5],1,scope='conv1')
+            print(self.images.shape)
+            net = slim.conv2d(self.images, 64, [3, 3], 1, padding='SAME', activation_fn=nn.relu, scope='conv1')
+            print(net.shape)
+            net = slim.conv2d(net, 64, [3, 3], 1, padding='SAME', activation_fn=nn.relu, scope='conv2')
+            print(net.shape)
+            net = slim.max_pool2d(net, [2, 2], scope='pool1')
+            print(net.shape)
+
+            net = slim.conv2d(net, 128, [3, 3], 1, padding='SAME', activation_fn=nn.relu, scope='conv3')
+            print(net.shape)
+            net = slim.conv2d(net, 128, [3, 3], 1, padding='SAME', activation_fn=nn.relu, scope='conv4')
+            print(net.shape)
             net = slim.max_pool2d(net, [2, 2], scope='pool2')
-            net = slim.conv2d(net,16,[5,5],1,scope='conv3')
+            print(net.shape)
+
+            net = slim.conv2d(net, 256, [3, 3], 1, padding='SAME', activation_fn=nn.relu, scope='conv5')
+            print(net.shape)
+            net = slim.conv2d(net, 256, [3, 3], 1, padding='SAME', activation_fn=nn.relu, scope='conv6')
+            print(net.shape)
+            net = slim.conv2d(net, 256, [3, 3], 1, padding='SAME', activation_fn=nn.relu, scope='conv7')
+            print(net.shape)
+            net = slim.conv2d(net, 256, [3, 3], 1, padding='SAME', activation_fn=nn.relu, scope='conv8')
+            print(net.shape)
+            net = slim.max_pool2d(net, [2, 2], scope='pool3')
+            print(net.shape)
+
+            net = slim.conv2d(net, 512, [3, 3], 1, padding='SAME', activation_fn=nn.relu, scope='conv9')
+            print(net.shape)
+            net = slim.conv2d(net, 512, [3, 3], 1, padding='SAME', activation_fn=nn.relu, scope='conv10')
+            print(net.shape)
+            net = slim.conv2d(net, 512, [3, 3], 1, padding='SAME', activation_fn=nn.relu, scope='conv11')
+            print(net.shape)
+            net = slim.conv2d(net, 512, [3, 3], 1, padding='SAME', activation_fn=nn.relu, scope='conv12')
+            print(net.shape)
             net = slim.max_pool2d(net, [2, 2], scope='pool4')
-            net = slim.conv2d(net,120,[5,5],1,scope='conv5')
-            net = slim.flatten(net, scope='flat6')
-            net = slim.fully_connected(net, 84, scope='fc7')
-            digits = slim.fully_connected(net, 10, scope='fc8')
+            print(net.shape)
+
+            net = slim.conv2d(net, 512, [3, 3], 1, padding='SAME', activation_fn=nn.relu, scope='conv13')
+            print(net.shape)
+            net = slim.conv2d(net, 512, [3, 3], 1, padding='SAME', activation_fn=nn.relu, scope='conv14')
+            print(net.shape)
+            net = slim.conv2d(net, 512, [3, 3], 1, padding='SAME', activation_fn=nn.relu, scope='conv15')
+            print(net.shape)
+            net = slim.conv2d(net, 512, [3, 3], 1, padding='SAME', activation_fn=nn.relu, scope='conv16')
+            print(net.shape)
+            net = slim.max_pool2d(net, [2, 2], scope='pool5')
+            print(net.shape)
+
+            net = slim.flatten(net, scope='flat')
+            print(net.shape)
+            net = slim.fully_connected(net, 4096, scope='fc1')
+            print(net.shape)
+            net = slim.fully_connected(net, 4096, scope='fc1')
+            print(net.shape)
+            net = slim.fully_connected(net, 10, scope='fc1')
+            print(net.shape)
+
+            digits = net
         return digits
 
