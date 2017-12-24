@@ -83,9 +83,9 @@ class Model_cifar10:
             print(net.shape)
             net = slim.fully_connected(net, 4096, scope='fc1')
             print(net.shape)
-            net = slim.fully_connected(net, 4096, scope='fc1')
+            net = slim.fully_connected(net, 4096, scope='fc2')
             print(net.shape)
-            net = slim.fully_connected(net, 10, scope='fc1')
+            net = slim.fully_connected(net, 10, scope='fc3')
             print(net.shape)
 
             digits = net
