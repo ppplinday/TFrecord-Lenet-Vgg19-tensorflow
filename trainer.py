@@ -12,14 +12,15 @@ import numpy as np
 import tensorflow as tf
 from load_data import load_CIFAR10
 from model import Model
+import config
 
 class Trainer:
 
 	def __init__(self, network, sess, saver, dataset_xtrain, dataset_ytrain):
-		self.learning_rate = 1e-3
-		self.batch_size = 32
-		self.num_epoch = 5
-		self.num_sample = 50000
+		self.learning_rate = config.learning_rate
+		self.batch_size = config.batch_size
+		self.num_epoch = config.num_epoch
+		self.num_sample = config.num_sample
 		self.model = network
 		self.sess = sess
 		self.dataset_xtrain = dataset_xtrain
