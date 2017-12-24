@@ -22,7 +22,7 @@ def main():
 	print('loaded the weight')
 
 	accurary = sess.run([model.train_accuracy], 
-		feed_dict={model.input_image: X_test, model.input_label: label)
+		feed_dict={model.input_image: X_test, model.input_label: label})
 	print('Accurary: {}'.format(accurary))
 
 if __name__ == "__main__":
