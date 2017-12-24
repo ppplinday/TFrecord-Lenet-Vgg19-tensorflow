@@ -31,7 +31,7 @@ class Model_cifar10:
     def build(self, is_train=True):
 
         with slim.arg_scope([slim.conv2d], padding='VALID', weights_initializer=tf.truncated_normal_initializer(stddev=0.02)):
-            net1 = slim.conv2d(self.images, 4, [3, 3], 1, scope='conv11')
+            net1 = slim.conv2d(self.images, 4, [3, 3], 1, padding='SAME' scope='conv11')
             print(net1.shape)
             net = slim.conv2d(self.images,32,[5,5],1,scope='conv1')
             net = slim.max_pool2d(net, [2, 2], scope='pool2')
