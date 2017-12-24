@@ -14,6 +14,7 @@ from load_data import load_CIFAR10
 from model import Model
 from cifar10_model import Model_cifar10
 import config
+from scipy.misc import imresize
 
 class Trainer:
 
@@ -61,6 +62,8 @@ def main():
 	lenet = Model_cifar10()
 	parameter_path = "checkpoint/variable.ckpt"
 	path_exists = "checkpoint"
+
+	X_train = list(map(lambda img: imresize(img, 224), X_train))
 
 	# saver = tf.train.Saver()
 	# if os.path.exists(path_exists):
