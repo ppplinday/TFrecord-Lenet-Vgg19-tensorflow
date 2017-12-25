@@ -119,21 +119,17 @@ def main():
 	print(X_train[0])
 	print('xxxxxxxxxx')
 	print(X_train[1])
-	if X_train[2] == X_train[3]:
-		print('same')
+
+	saver = tf.train.Saver()
+	if os.path.exists(path_exists):
+		saver.restore(sess, parameter_path)
+		print('loaded the weight')
 	else:
-		print('not same')
+		sess.run(tf.global_variables_initializer())
+		print('init all the weight')
 
-	# saver = tf.train.Saver()
-	# if os.path.exists(path_exists):
-	# 	saver.restore(sess, parameter_path)
-	# 	print('loaded the weight')
-	# else:
-	# 	sess.run(tf.global_variables_initializer())
-	# 	print('init all the weight')
-
-	# train = Trainer(lenet, sess, saver, X_train, y_train)
-	# save_path = saver.save(sess, parameter_path)
+	train = Trainer(lenet, sess, saver, X_train, y_train)
+	save_path = saver.save(sess, parameter_path)
 
 
 if __name__ == '__main__':
