@@ -112,17 +112,18 @@ def main():
 	print(X_train.shape)
 	X_train = np.array(_preprocess(X_train))
 	print(X_train.shape)
+	print(X_train)
 
-	saver = tf.train.Saver()
-	if os.path.exists(path_exists):
-		saver.restore(sess, parameter_path)
-		print('loaded the weight')
-	else:
-		sess.run(tf.global_variables_initializer())
-		print('init all the weight')
+	# saver = tf.train.Saver()
+	# if os.path.exists(path_exists):
+	# 	saver.restore(sess, parameter_path)
+	# 	print('loaded the weight')
+	# else:
+	# 	sess.run(tf.global_variables_initializer())
+	# 	print('init all the weight')
 
-	train = Trainer(lenet, sess, saver, X_train, y_train)
-	save_path = saver.save(sess, parameter_path)
+	# train = Trainer(lenet, sess, saver, X_train, y_train)
+	# save_path = saver.save(sess, parameter_path)
 
 
 if __name__ == '__main__':
