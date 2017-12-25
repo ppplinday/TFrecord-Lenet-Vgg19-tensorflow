@@ -73,6 +73,26 @@ def subtract_mean_rgb(images):
     """ Normalize by subtracting from the mean RGB value of all images"""
     return images - np.round(np.mean(images))
 
+def _preprocess(images_1d, n_labels=10, dshape=(32, 32, 3),
+                reshape=[224, 224, 3]):
+    """ Preprocesses CIFAR10 images
+    images_1d: np.ndarray
+        Unprocessed images
+    labels_1d: np.ndarray
+        1d vector of labels
+    n_labels: int, 10
+        Images are split into 10 classes
+    dshape: array, [32, 32, 3]
+        Images are 32 by 32 RGB
+    """
+    # Reshape and rotate 1d vector into image
+    images_raw = rotate_reshape(images_1d, dshape)
+    # Rescale images to 224,244
+    images_rescaled = rescale(images_raw, reshape)
+    # Subtract mean RGB value from every pixel
+    images = subtract_mean_rgb(images_rescaled)
+    return images
+
 def main():
 	cifar10_dir = 'cifar-10-batches-py'
 	X_train, y_train, X_test, y_test = load_CIFAR10(cifar10_dir)
@@ -87,10 +107,11 @@ def main():
 	parameter_path = "checkpoint/variable.ckpt"
 	path_exists = "checkpoint"
 
+	X_train = np.array(X_train)
 	X_train = np.reshape(X_train, (50000, 3072))
-	images_raw = rotate_reshape(X_train, (32, 32, 3))
-	X_train = rescale(images_raw, [224, 224, 3])
-	print(X_train.size)
+	print(X_train.shape)
+	X_train = _preprocess(X_train)
+	print(X_train.shape)
 
 	# saver = tf.train.Saver()
 	# if os.path.exists(path_exists):
