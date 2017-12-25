@@ -34,15 +34,15 @@ class Trainer:
 
 		for epoch in range(self.num_epoch):
 			for iter in range(self.num_sample // self.batch_size):
-				start = iter * 32
-				batch = self.dataset_xtrain[start:start + 32]
-				temp = self.dataset_ytrain[start:start + 32]
-				label = np.zeros((32, 10))
-				for i in range(32):
+				start = iter * self.batch_size
+				batch = self.dataset_xtrain[start:start + self.batch_size]
+				temp = self.dataset_ytrain[start:start + self.batch_size]
+				label = np.zeros((self.batch_size, 10))
+				for i in range(self.batch_size):
 					label[i][temp[i]] = 1
 				self.sess.run(self.model.train_op, feed_dict={self.model.input_image: batch, self.model.input_label: label})
 
-			if epoch % 2 == 0:
+			if epoch % 1 == 0:
 				loss, accurary = self.sess.run([self.model.loss, self.model.train_accuracy],
 					feed_dict={self.model.input_image: batch, self.model.input_label: label})
 				print('[Epoch {}] Loss: {} Accurary: {}'.format(epoch, loss, accurary))
@@ -112,18 +112,18 @@ def main():
 	print(X_train.shape)
 	X_train = np.array(_preprocess(X_train))
 	print(X_train.shape)
-	print(X_train)
+	#print(X_train)
 
-	# saver = tf.train.Saver()
-	# if os.path.exists(path_exists):
-	# 	saver.restore(sess, parameter_path)
-	# 	print('loaded the weight')
-	# else:
-	# 	sess.run(tf.global_variables_initializer())
-	# 	print('init all the weight')
+	saver = tf.train.Saver()
+	if os.path.exists(path_exists):
+		saver.restore(sess, parameter_path)
+		print('loaded the weight')
+	else:
+		sess.run(tf.global_variables_initializer())
+		print('init all the weight')
 
-	# train = Trainer(lenet, sess, saver, X_train, y_train)
-	# save_path = saver.save(sess, parameter_path)
+	train = Trainer(lenet, sess, saver, X_train, y_train)
+	save_path = saver.save(sess, parameter_path)
 
 
 if __name__ == '__main__':
