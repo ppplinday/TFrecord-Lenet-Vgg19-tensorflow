@@ -45,7 +45,8 @@ class Trainer:
 			#if epoch % 1 == 0:
 				loss, accurary = self.sess.run([self.model.loss, self.model.train_accuracy],
 					feed_dict={self.model.input_image: batch, self.model.input_label: label})
-				print('[Epoch {}] Loss: {} Accurary: {}'.format(epoch, loss, accurary))
+				#print('[Epoch {}] Loss: {} Accurary: {}'.format(epoch, loss, accurary))
+				print('[Iter {}] Loss: {} Accurary: {}'.format(iter, loss, accurary))
 
 		print('Done! End of training!')
 
@@ -115,16 +116,16 @@ def main():
 	print(X_train.shape)
 	print(X_train[0])
 
-	# saver = tf.train.Saver()
-	# if os.path.exists(path_exists):
-	# 	saver.restore(sess, parameter_path)
-	# 	print('loaded the weight')
-	# else:
-	# 	sess.run(tf.global_variables_initializer())
-	# 	print('init all the weight')
+	saver = tf.train.Saver()
+	if os.path.exists(path_exists):
+		saver.restore(sess, parameter_path)
+		print('loaded the weight')
+	else:
+		sess.run(tf.global_variables_initializer())
+		print('init all the weight')
 
-	# train = Trainer(lenet, sess, saver, X_train, y_train)
-	# save_path = saver.save(sess, parameter_path)
+	train = Trainer(lenet, sess, saver, X_train, y_train)
+	save_path = saver.save(sess, parameter_path)
 
 
 if __name__ == '__main__':
