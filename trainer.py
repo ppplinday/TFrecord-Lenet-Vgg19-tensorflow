@@ -49,6 +49,30 @@ class Trainer:
 
 		print('Done! End of training!')
 
+def rotate_reshape(images, output_shape):
+    """ Rotate and reshape n images"""
+    # def r_r(img):
+    #    """ Rotate and reshape one image """
+    #    img = np.reshape(img, output_shape, order="F")
+    #    img = np.rot90(img, k=3)
+    # new_images = list(map(r_r, images))
+    new_images = []
+    for img in images:
+        img = np.reshape(img, output_shape, order="F")
+        img = np.rot90(img, k=3)
+        new_images.append(img)
+    return new_images
+
+
+def rescale(images, new_size):
+    """ Rescale image to new size"""
+    return list(map(lambda img: imresize(img, new_size), images))
+
+
+def subtract_mean_rgb(images):
+    """ Normalize by subtracting from the mean RGB value of all images"""
+    return images - np.round(np.mean(images))
+
 def main():
 	cifar10_dir = 'cifar-10-batches-py'
 	X_train, y_train, X_test, y_test = load_CIFAR10(cifar10_dir)
@@ -63,7 +87,10 @@ def main():
 	parameter_path = "checkpoint/variable.ckpt"
 	path_exists = "checkpoint"
 
-	X_train = imresize(X_train, (224, 224))
+	X_train = np.reshape(X_train, (50000, 3072))
+	images_raw = rotate_reshape(X_train, dshape)
+	images_rescaled = rescale(images_raw, reshape)
+	X_train = subtract_mean_rgb(images_rescaled)
 	print(X_train.shape)
 
 	# saver = tf.train.Saver()
