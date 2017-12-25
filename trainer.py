@@ -102,17 +102,17 @@ def main():
 	print(y_test.shape)
 
 	sess = tf.Session()
-	#lenet = Model()
-	lenet = Model_cifar10()
+	lenet = Model()
+	#lenet = Model_cifar10()
 	parameter_path = "checkpoint/variable.ckpt"
 	path_exists = "checkpoint"
 
-	X_train = np.array(X_train)
-	X_train = np.reshape(X_train, (50000, 3072))
-	print(X_train.shape)
-	X_train = np.array(_preprocess(X_train))
-	print(X_train.shape)
-	#print(X_train)
+	# X_train = np.array(X_train)
+	# X_train = np.reshape(X_train, (50000, 3072))
+	# print(X_train.shape)
+	# X_train = np.array(_preprocess(X_train))
+	# print(X_train.shape)
+	# print(X_train)
 
 	saver = tf.train.Saver()
 	if os.path.exists(path_exists):

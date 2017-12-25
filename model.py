@@ -44,5 +44,6 @@ class Model:
             net = slim.flatten(net, scope='flat6')
             net = slim.fully_connected(net, 84, scope='fc7')
             digits = slim.fully_connected(net, 10, scope='fc8')
+            print('xxxxxxxxxxxx')
         return digits
 
