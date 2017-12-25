@@ -88,8 +88,8 @@ def main():
 	path_exists = "checkpoint"
 
 	X_train = np.reshape(X_train, (50000, 3072))
-	images_raw = rotate_reshape(X_train, dshape)
-	images_rescaled = rescale(images_raw, reshape)
+	images_raw = rotate_reshape(X_train, (32, 32, 3))
+	images_rescaled = rescale(images_raw, [224, 224, 3])
 	X_train = subtract_mean_rgb(images_rescaled)
 	print(X_train.shape)
 
