@@ -106,7 +106,7 @@ def main():
 	parameter_path = "checkpoint/variable.ckpt"
 	path_exists = "checkpoint"
 
-	y_train = tf.one_hot(y_train, 10)
+	y_train = np.array(tf.one_hot(y_train, 10))
 	print(y_train)
 	print('ttttttttttttt')
 	print(X_train[0])
