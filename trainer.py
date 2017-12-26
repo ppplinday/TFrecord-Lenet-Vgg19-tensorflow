@@ -113,6 +113,12 @@ def main():
 	for i in range(50000):
 		label[i, y_train[i]] = 1
 	y_train = label
+	sum = 0
+	for i in range(50000):
+		for j in range(10):
+			if y_train[i, j] == 1:
+				sum = sum + 1
+	print('sum = {}'.format(sum))
 	print(y_train)
 	print(y_train.shape)
 	print('ttttttttttttt')
