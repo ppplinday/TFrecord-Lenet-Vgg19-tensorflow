@@ -109,9 +109,10 @@ def main():
 	path_exists = "checkpoint"
 
 	# y_train = tf.one_hot(y_train, 10)
-	y_train = np.zeros((10000, 10))
-				for i in range(10000):
-					label[i, y_train[i]] = 1
+	label = np.zeros((10000, 10))
+	for i in range(10000):
+		label[i, y_train[i]] = 1
+	y_train = label
 	print(y_train)
 	print(y_train.shape)
 	print('ttttttttttttt')
