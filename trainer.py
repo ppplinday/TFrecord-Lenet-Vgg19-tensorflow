@@ -46,7 +46,7 @@ class Trainer:
 				loss, accurary = self.sess.run([self.model.loss, self.model.train_accuracy],
 					feed_dict={self.model.input_image: batch, self.model.input_label: label})
 				#print('[Epoch {}] Loss: {} Accurary: {}'.format(epoch, loss, accurary))
-				print('[Iter {}] Loss: {} Accurary: {}'.format(iter, loss, accurary))
+				print('[Epoch {}] Iter: {} Loss: {} Accurary: {}'.format(epoch, iter, loss, accurary))
 
 		print('Done! End of training!')
 
