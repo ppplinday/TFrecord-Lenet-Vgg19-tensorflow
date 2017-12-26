@@ -112,6 +112,8 @@ def main():
 
 	y_train = tf.one_hot(y_train, 10)
 	print(y_train)
+	y_train = sess.run[y_train]
+	print(y_train)
 	print('ttttttttttttt')
 	print(X_train[0])
 	print('yyyyyyyyyyy')
