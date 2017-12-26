@@ -36,10 +36,8 @@ class Trainer:
 			for iter in range(self.num_sample // self.batch_size):
 				start = iter * self.batch_size
 				batch = self.dataset_xtrain[start:start + self.batch_size]
-				temp = self.dataset_ytrain[start:start + self.batch_size]
-				label = np.zeros((self.batch_size, 10))
-				for i in range(self.batch_size):
-					label[i][temp[i]] = 1
+				label = self.dataset_ytrain[start:start + self.batch_size]
+				
 				self.sess.run(self.model.train_op, feed_dict={self.model.input_image: batch, self.model.input_label: label})
 
 			#if epoch % 1 == 0:
@@ -108,6 +106,9 @@ def main():
 	parameter_path = "checkpoint/variable.ckpt"
 	path_exists = "checkpoint"
 
+	y_train = tf.one_hot(y_train, 10)
+	print(y_train)
+	print('ttttttttttttt')
 	print(X_train[0])
 	print('yyyyyyyyyyy')
 	print(X_train[1])
