@@ -27,6 +27,8 @@ class Trainer:
 		self.sess = sess
 		self.dataset_xtrain = dataset_xtrain
 		self.dataset_ytrain = dataset_ytrain
+		print(dataset_ytrain.shape)
+		print(dataset_ytrain)
 
 		self.train()
 
@@ -37,7 +39,9 @@ class Trainer:
 				start = iter * self.batch_size
 				batch = self.dataset_xtrain[start:start + self.batch_size]
 				label = self.dataset_ytrain[start:start + self.batch_size]
-				
+				# label = np.zeros((self.batch_size, 10))
+				# for i in range(self.batch_size):
+				# 	label[i][temp[i]] = 1
 				self.sess.run(self.model.train_op, feed_dict={self.model.input_image: batch, self.model.input_label: label})
 
 			#if epoch % 1 == 0:
@@ -106,9 +110,8 @@ def main():
 	parameter_path = "checkpoint/variable.ckpt"
 	path_exists = "checkpoint"
 
-	y_train = np.array(tf.one_hot(y_train, 10))
+	y_train = tf.one_hot(y_train, 10)
 	print(y_train)
-	print(y_train.shape)
 	print('ttttttttttttt')
 	print(X_train[0])
 	print('yyyyyyyyyyy')
