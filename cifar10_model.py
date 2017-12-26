@@ -26,7 +26,7 @@ class Model_cifar10:
 
         self.loss = slim.losses.softmax_cross_entropy(self.train_digits, self.labels)
         #self.train_op = tf.train.AdamOptimizer(self.learning_rate).minimize(self.loss)
-        self.train_op = tf.train.MomentumOptimizer(self.learning_rate).minimize(self.loss)
+        self.train_op = tf.train.MomentumOptimizer(self.learning_rate, 0.9).minimize(self.loss)
 
 
     def build(self, is_train=True):
