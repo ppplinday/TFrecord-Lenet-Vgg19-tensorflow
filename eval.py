@@ -78,8 +78,8 @@ def main():
 	for i in range(10000):
 		accurary = sess.run([model.train_accuracy], 
 			feed_dict={model.input_image: X_test[i:i + 1], model.input_label: label[i: i + 1]})
-		print('i = {} same ? {}'.format(i, accurary))
-		sum += accurary
+		print('i = {}   res = {}'.format(i, accurary))
+		sum += accurary[0]
 	print('Accurary: {}'.format(sum / 10000.0))
 
 if __name__ == "__main__":
