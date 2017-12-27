@@ -113,26 +113,10 @@ def main():
 	for i in range(50000):
 		label[i, y_train[i]] = 1
 	y_train = label
-	sum = 0
-	for i in range(50000):
-		for j in range(10):
-			if y_train[i, j] == 1:
-				sum = sum + 1
-	print('sum = {}'.format(sum))
-	print(y_train)
-	print(y_train.shape)
-	print('ttttttttttttt')
-	print(X_train[0])
-	print('yyyyyyyyyyy')
-	print(X_train[1])
+	
 	X_train = np.array(X_train)
 	X_train = np.reshape(X_train, (50000, 3072))
-	print(X_train.shape)
 	X_train = np.array(_preprocess(X_train))
-	print(X_train.shape)
-	print(X_train[0])
-	print('xxxxxxxxxx')
-	print(X_train[1])
 
 	saver = tf.train.Saver()
 	if os.path.exists(path_exists):
