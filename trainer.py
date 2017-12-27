@@ -87,9 +87,9 @@ def _preprocess(images_1d, n_labels=10, dshape=(32, 32, 3),
         Images are 32 by 32 RGB
     """
     # Reshape and rotate 1d vector into image
-    images_raw = rotate_reshape(images_1d, dshape)
+    # images = rotate_reshape(images_1d, dshape)
     # Rescale images to 224,244
-    images = rescale(images_raw, reshape)
+    images = rescale(images, reshape)
     # Subtract mean RGB value from every pixel
     #images = subtract_mean_rgb(images_rescaled)
     return images
