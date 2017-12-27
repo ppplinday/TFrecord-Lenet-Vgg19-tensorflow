@@ -16,7 +16,7 @@ def main():
 
 	sess = tf.Session()
 	#model = Model()
-	mndel = Model_cifar10()
+	model = Model_cifar10()
 	parameter_path = "checkpoint/variable.ckpt"
 
 	saver = tf.train.Saver()
