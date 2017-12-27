@@ -29,6 +29,7 @@ class Model_cifar10:
         self.loss = slim.losses.softmax_cross_entropy(onehot_labels=self.labels, logits=self.train_digits)
         #self.train_op = tf.train.AdamOptimizer(self.learning_rate).minimize(self.loss)
         #lr = self.learning_rate * (0.5 ** (epoch // 30))
+        self.global_step = self.global_step + 1.0
         self.lr = tf.train.exponential_decay(self.learning_rate, self.global_step, 780*30, 0.5, staircase=True)
         self.train_op = tf.train.MomentumOptimizer(self.lr, 0.9).minimize(self.loss)
 
