@@ -74,10 +74,13 @@ def main():
 	saver = tf.train.Saver()
 	saver.restore(sess, parameter_path)
 	print('loaded the weight')
-
-	accurary = sess.run([model.train_accuracy], 
-		feed_dict={model.input_image: X_test, model.input_label: label})
-	print('Accurary: {}'.format(accurary))
+	sum = 0.0;
+	for i in range(10000):
+		accurary = sess.run([model.train_accuracy], 
+			feed_dict={model.input_image: X_test[i], model.input_label: label[i]})
+		print('i = {} same ? {}'.format(i, accurary))
+		sum += accurary
+	print('Accurary: {}'.format(sum / 10000.0))
 
 if __name__ == "__main__":
 	main()
