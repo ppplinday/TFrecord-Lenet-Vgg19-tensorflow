@@ -42,11 +42,11 @@ class Trainer:
 
 				self.sess.run(self.model.train_op, feed_dict={self.model.input_image: batch, self.model.input_label: label})
 
-			#if epoch % 1 == 0:
-				loss, accurary = self.sess.run([self.model.loss, self.model.train_accuracy],
-					feed_dict={self.model.input_image: batch, self.model.input_label: label})
-				#print('[Epoch {}] Loss: {} Accurary: {}'.format(epoch, loss, accurary))
-				print('[Epoch {}] Iter: {} Loss: {} Accurary: {}'.format(epoch, iter, loss, accurary))
+				if iter % 5 == 0:
+					loss, accurary = self.sess.run([self.model.loss, self.model.train_accuracy],
+						feed_dict={self.model.input_image: batch, self.model.input_label: label})
+			
+					print('[Epoch {}] Iter: {} Loss: {} Accurary: {}'.format(epoch, iter, loss, accurary))
 
 		print('Done! End of training!')
 
