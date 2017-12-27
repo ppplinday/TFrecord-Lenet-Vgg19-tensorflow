@@ -12,7 +12,7 @@ class Model_cifar10:
         self.images = tf.reshape(self.input_image, [-1, 224, 224, 3])
         self.input_label = tf.placeholder(tf.float32, [None, 10])
         self.labels = tf.cast(self.input_label, tf.int32)
-        self.global_step = tf.Variable(0, trainable=False)
+        self.global_step = 0.0
 
         self.batch_size = config.batch_size
         self.learning_rate = config.learning_rate
