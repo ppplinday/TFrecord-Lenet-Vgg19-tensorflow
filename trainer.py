@@ -60,7 +60,7 @@ def rotate_reshape(images, output_shape):
     new_images = []
     for img in images:
         img = np.reshape(img, output_shape, order="F")
-        img = np.rot90(img, k=3)
+        # img = np.rot90(img, k=3)
         new_images.append(img)
     return new_images
 
@@ -87,9 +87,9 @@ def _preprocess(images_1d, n_labels=10, dshape=(32, 32, 3),
         Images are 32 by 32 RGB
     """
     # Reshape and rotate 1d vector into image
-    # images = rotate_reshape(images_1d, dshape)
+    images = rotate_reshape(images_1d, dshape)
     # Rescale images to 224,244
-    images = rescale(images_1d, reshape)
+    images = rescale(images, reshape)
     # Subtract mean RGB value from every pixel
     #images = subtract_mean_rgb(images_rescaled)
     return images
