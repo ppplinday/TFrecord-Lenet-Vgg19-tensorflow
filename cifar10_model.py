@@ -32,7 +32,7 @@ class Model_cifar10:
         #lr = self.learning_rate * (0.5 ** (epoch // 30))
         #self.global_step = tf.add(self.global_step, self.one)
         self.lr = tf.train.exponential_decay(self.learning_rate, self.global_step, 780*30, 0.5, staircase=True)
-        self.train_op = tf.train.MomentumOptimizer(self.lr, 0.9).minimize(self.loss, self.global_step = self.global_step)
+        self.train_op = tf.train.MomentumOptimizer(self.lr, 0.9).minimize(self.loss, global_step=self.global_step)
 
 
     def build(self, is_train=True):
