@@ -1,5 +1,6 @@
 import tensorflow as tf
 import tensorflow.contrib.slim as slim
+import config
 
 
 class Model_cifar10:
@@ -12,8 +13,8 @@ class Model_cifar10:
         self.input_label = tf.placeholder(tf.float32, [None, 10])
         self.labels = tf.cast(self.input_label, tf.int32)
 
-        self.batch_size = 32
-        self.learning_rate = 1e-3
+        self.batch_size = config.batch_size
+        self.learning_rate = config.learning_rate
 
         with tf.variable_scope("Vgg19") as scope:
             self.train_digits = self.build(True)
