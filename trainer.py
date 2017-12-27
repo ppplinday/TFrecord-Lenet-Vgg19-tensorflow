@@ -111,7 +111,7 @@ def main():
 	# y_train = tf.one_hot(y_train, 10)
 	label = np.zeros((50000, 10))
 	for i in range(50000):
-		label[i, y_train[i]] = 1
+		label[i, y_train[i]] = 1.0
 	y_train = label
 	
 	X_train = np.array(X_train)
