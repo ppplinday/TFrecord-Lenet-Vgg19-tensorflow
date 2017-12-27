@@ -6,6 +6,8 @@ import tensorflow.contrib.slim as slim
 from load_data import load_CIFAR10
 from model import Model
 from cifar10_model import Model_cifar10
+import config
+from scipy.misc import imresize
 
 
 def rotate_reshape(images, output_shape):
