@@ -24,7 +24,7 @@ class Model_cifar10:
         self.correct_prediction = tf.equal(tf.argmax(self.pred_digits, 1), tf.argmax(self.labels, 1))
         self.train_accuracy = tf.reduce_mean(tf.cast(self.correct_prediction, "float"))
 
-        self.loss = slim.losses.softmax_cross_entropy(self.labels, self.train_digits)
+        self.loss = slim.losses.softmax_cross_entropy(onehot_labels=self.labels, logits=self.train_digits)
         #self.train_op = tf.train.AdamOptimizer(self.learning_rate).minimize(self.loss)
         self.train_op = tf.train.MomentumOptimizer(self.learning_rate, 0.9).minimize(self.loss)
 
