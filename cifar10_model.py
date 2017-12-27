@@ -12,7 +12,7 @@ class Model_cifar10:
         self.images = tf.reshape(self.input_image, [-1, 224, 224, 3])
         self.input_label = tf.placeholder(tf.float32, [None, 10])
         self.labels = tf.cast(self.input_label, tf.int32)
-        self.global_step = tf.Variable(0.0, trainable=False, dtype=tf.float32)
+        self.global_step = 0.0#tf.Variable(0.0, trainable=False, dtype=tf.float32)
         self.one = tf.Variable(1.0, dtype=tf.float32)
 
         self.batch_size = config.batch_size
@@ -30,7 +30,8 @@ class Model_cifar10:
         self.loss = slim.losses.softmax_cross_entropy(onehot_labels=self.labels, logits=self.train_digits)
         #self.train_op = tf.train.AdamOptimizer(self.learning_rate).minimize(self.loss)
         #lr = self.learning_rate * (0.5 ** (epoch // 30))
-        self.global_step = tf.add(self.global_step, self.one)
+        #self.global_step = tf.add(self.global_step, self.one)
+        self.global_step = self.global_step + 1.0
         self.lr = tf.train.exponential_decay(self.learning_rate, self.global_step, 780*30, 0.5, staircase=True)
         self.train_op = tf.train.MomentumOptimizer(self.lr, 0.9).minimize(self.loss)
 
