@@ -14,6 +14,11 @@ def main():
 	for i in range(10000):
 		label[i][y_test[i]] = 1
 
+	X_train = np.array(X_train)
+	X_train = np.reshape(X_train, (10000, 3072))
+	print(X_train.shape)
+	X_train = np.array(_preprocess(X_train))
+
 	sess = tf.Session()
 	#model = Model()
 	model = Model_cifar10()
