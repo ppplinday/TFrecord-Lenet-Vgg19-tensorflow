@@ -52,7 +52,7 @@ class Trainer:
 
 			sum = 0.0;
 			for i in range(10000):
-				accurary = self.sess.run([model.train_accuracy], 
+				accurary = self.sess.run([self.model.train_accuracy], 
 					feed_dict={self.model.input_image: self.X_test[i:i + 1], self.model.input_label: self.y_test[i: i + 1]})
 				# print('i = {}   res = {}'.format(i, accurary))
 				sum += accurary[0]
