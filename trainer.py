@@ -47,7 +47,7 @@ class Trainer:
 						self.model.global_step, self.model.lr],
 						feed_dict={self.model.input_image: batch, self.model.input_label: label})
 			
-					print('[Epoch {}] Iter: {} Loss: {} Accurary: {} step: {} lr: {}'.format(epoch, iter, loss, accurary,step, lr))
+				print('[Epoch {}] Iter: {} Loss: {} Accurary: {} step: {} lr: {}'.format(epoch, iter, loss, accurary,step, lr))
 
 		print('Done! End of training!')
 
