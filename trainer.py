@@ -18,7 +18,7 @@ from scipy.misc import imresize
 
 class Trainer:
 
-	def __init__(self, network, sess, saver, dataset_xtrain, dataset_ytrain):
+	def __init__(self, network, sess, saver, dataset_xtrain, dataset_ytrain, X_test, y_test):
 		self.learning_rate = config.learning_rate
 		self.batch_size = config.batch_size
 		self.num_epoch = config.num_epoch
@@ -49,6 +49,14 @@ class Trainer:
 
 				if iter % 50 == 0:
 					print('[Epoch {}] Iter: {} Loss: {} Accurary: {} step: {} lr: {}'.format(epoch, iter, loss, accurary,step, lr))
+
+			sum = 0.0;
+			for i in range(10000):
+				accurary = sess.run([model.train_accuracy], 
+					feed_dict={self.model.input_image: self.X_test[i:i + 1], self.model.input_label: self.y_test[i: i + 1]})
+				# print('i = {}   res = {}'.format(i, accurary))
+				sum += accurary[0]
+			print('Accurary: {}'.format(sum / 10000.0))
 
 		print('Done! End of training!')
 
@@ -120,6 +128,17 @@ def main():
 	X_train = np.reshape(X_train, (50000, 3072))
 	X_train = np.array(_preprocess(X_train))
 
+
+	label = np.zeros((10000, 10))
+	for i in range(10000):
+		label[i][y_test[i]] = 1
+
+	X_test = np.array(X_test)
+	X_test = np.reshape(X_test, (10000, 3072))
+	print(X_test.shape)
+	X_test = np.array(_preprocess(X_test))
+
+
 	saver = tf.train.Saver()
 	if os.path.exists(path_exists):
 		saver.restore(sess, parameter_path)
@@ -128,7 +147,7 @@ def main():
 		sess.run(tf.global_variables_initializer())
 		print('init all the weight')
 
-	train = Trainer(lenet, sess, saver, X_train, y_train)
+	train = Trainer(lenet, sess, saver, X_train, y_train, X_test, label)
 	save_path = saver.save(sess, parameter_path)
 
 
