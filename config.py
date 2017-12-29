@@ -1,4 +1,4 @@
-learning_rate = 5e-4
+learning_rate = 0.000125
 batch_size = 64
 num_epoch = 60
 num_sample = 50000
