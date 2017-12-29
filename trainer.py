@@ -27,6 +27,8 @@ class Trainer:
 		self.sess = sess
 		self.dataset_xtrain = dataset_xtrain
 		self.dataset_ytrain = dataset_ytrain
+		self.X_test = X_test
+		self.y_test = y_test
 		print(dataset_ytrain.shape)
 		print(dataset_ytrain)
 
