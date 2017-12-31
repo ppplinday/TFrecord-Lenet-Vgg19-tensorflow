@@ -74,8 +74,8 @@ def main(model_name):
 		label[i][y_test[i]] = 1
 
 	sess = tf.Session()
-	parameter_path = "checkpoint" + model_name + "/variable.ckpt"
-	path_exists = "checkpoint" + model_name
+	parameter_path = "checkpoint_" + model_name + "/variable.ckpt"
+	path_exists = "checkpoint_" + model_name
 
 	if model_name == "lenet":
 		model = Model()
