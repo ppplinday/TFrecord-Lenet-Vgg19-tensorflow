@@ -21,12 +21,17 @@ def main(model_name):
 	sess = tf.Session()
 	parameter_path = "checkpoint" + model_name + "/variable.ckpt"
 	if model_name == "lenet":
+		print('loaded the lenet model')
 		model = Model()
 	elif model_name == "vgg19":
+		print('loaded the vgg19 model')
 		model = Model_cifar10()
 		X_test = np.array(X_test)
 		X_test = np.reshape(X_test, (10000, 3072))
 		X_test = np.array(_preprocess(X_test))
+	else:
+		print('cannot find the checkpoint!')
+		return ;
 
 	saver = tf.train.Saver()
 	saver.restore(sess, parameter_path)
