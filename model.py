@@ -1,11 +1,6 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
-
 import tensorflow as tf
 import tensorflow.contrib.slim as slim
-
+import config
 
 class Model:
 
@@ -18,8 +13,9 @@ class Model:
         self.labels = tf.cast(self.input_label, tf.int32)
         self.global_step = tf.Variable(0.0, trainable=False, dtype=tf.float32)
 
-        self.batch_size = 32
-        self.learning_rate = 1e-3
+        self.batch_size = config.batch_size
+        self.learning_rate = config.learning_rate
+        self.lr = self.learning_rate
 
         with tf.variable_scope("Lenet") as scope:
             self.train_digits = self.build(True)
