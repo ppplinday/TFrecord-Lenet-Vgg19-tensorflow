@@ -7,7 +7,7 @@ from six.moves import xrange
 import tensorflow.contrib.slim as slim
 
 import os
-import time
+import sys
 import numpy as np
 import tensorflow as tf
 from load_data import load_CIFAR10
