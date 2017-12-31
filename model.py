@@ -14,9 +14,8 @@ class Model:
         self.global_step = tf.Variable(0.0, trainable=False, dtype=tf.float32)
 
         self.batch_size = config.batch_size
-        self.learning_rate = 5e-4
-        self.lr = self.learning_rate
-
+        self.learning_rate = config.learning_rate
+        
         with tf.variable_scope("Lenet") as scope:
             self.train_digits = self.build(True)
             scope.reuse_variables()
@@ -27,7 +26,8 @@ class Model:
         self.train_accuracy = tf.reduce_mean(tf.cast(self.correct_prediction, "float"))
 
         self.loss = slim.losses.softmax_cross_entropy(self.train_digits, self.labels)
-        self.train_op = tf.train.AdamOptimizer(self.learning_rate).minimize(self.loss)
+        self.lr = tf.train.exponential_decay(self.learning_rate, self.global_step, 780*30, 0.5, staircase=True)
+        self.train_op = tf.train.AdamOptimizer(self.lr).minimize(self.loss)
 
 
     def build(self, is_train=True):
