@@ -78,8 +78,10 @@ def main(model_name):
 	path_exists = "checkpoint_" + model_name
 
 	if model_name == "lenet":
+		print('begin to train lenet model')
 		model = Model()
 	elif model_name == "vgg19":
+		print('begin to train vgg19 model')
 		model = Model_cifar10()
 		X_train = np.array(X_train)
 		X_train = np.reshape(X_train, (50000, 3072))
@@ -87,6 +89,9 @@ def main(model_name):
 		X_test = np.array(X_test)
 		X_test = np.reshape(X_test, (10000, 3072))
 		X_test = np.array(_preprocess(X_test))
+	else:
+		print('we do not have this model')
+		return ;
 
 	saver = tf.train.Saver()
 	if os.path.exists(path_exists):
