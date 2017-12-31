@@ -14,7 +14,7 @@ from load_data import load_CIFAR10
 from model import Model
 from cifar10_model import Model_cifar10
 import config
-from scipy.misc import imresize
+from data_preprocess import _preprocess 
 
 class Trainer:
 
@@ -29,8 +29,6 @@ class Trainer:
 		self.dataset_ytrain = dataset_ytrain
 		self.X_test = X_test
 		self.y_test = y_test
-		print(dataset_ytrain.shape)
-		print(dataset_ytrain)
 
 		self.train()
 
@@ -56,90 +54,39 @@ class Trainer:
 			for i in range(10000):
 				accurary = self.sess.run([self.model.train_accuracy], 
 					feed_dict={self.model.input_image: self.X_test[i:i + 1], self.model.input_label: self.y_test[i: i + 1]})
-				# print('i = {}   res = {}'.format(i, accurary))
 				sum += accurary[0]
 			print('Accurary: {}'.format(sum / 10000.0))
 
 		print('Done! End of training!')
 
-def rotate_reshape(images, output_shape):
-    """ Rotate and reshape n images"""
-    # def r_r(img):
-    #    """ Rotate and reshape one image """
-    #    img = np.reshape(img, output_shape, order="F")
-    #    img = np.rot90(img, k=3)
-    # new_images = list(map(r_r, images))
-    new_images = []
-    for img in images:
-        img = np.reshape(img, output_shape, order="F")
-        # img = np.rot90(img, k=3)
-        new_images.append(img)
-    return new_images
-
-
-def rescale(images, new_size):
-    """ Rescale image to new size"""
-    return list(map(lambda img: imresize(img, new_size), images))
-
-
-def subtract_mean_rgb(images):
-    """ Normalize by subtracting from the mean RGB value of all images"""
-    return images - np.round(np.mean(images))
-
-def _preprocess(images_1d, n_labels=10, dshape=(32, 32, 3),
-                reshape=[224, 224, 3]):
-    """ Preprocesses CIFAR10 images
-    images_1d: np.ndarray
-        Unprocessed images
-    labels_1d: np.ndarray
-        1d vector of labels
-    n_labels: int, 10
-        Images are split into 10 classes
-    dshape: array, [32, 32, 3]
-        Images are 32 by 32 RGB
-    """
-    # Reshape and rotate 1d vector into image
-    images = rotate_reshape(images_1d, dshape)
-    # Rescale images to 224,244
-    images = rescale(images, reshape)
-    # Subtract mean RGB value from every pixel
-    #images = subtract_mean_rgb(images_rescaled)
-    return images
-
-def main():
+def main(model_name):
 	cifar10_dir = 'cifar-10-batches-py'
 	X_train, y_train, X_test, y_test = load_CIFAR10(cifar10_dir)
-	print(X_train.shape)
-	print(y_train.shape)
-	print(X_test.shape)
-	print(y_test.shape)
-
-	sess = tf.Session()
-	#lenet = Model()
-	lenet = Model_cifar10()
-	parameter_path = "checkpoint/variable.ckpt"
-	path_exists = "checkpoint"
 
 	# y_train = tf.one_hot(y_train, 10)
 	label = np.zeros((50000, 10))
 	for i in range(50000):
 		label[i, y_train[i]] = 1.0
 	y_train = label
-	
-	X_train = np.array(X_train)
-	X_train = np.reshape(X_train, (50000, 3072))
-	X_train = np.array(_preprocess(X_train))
-
 
 	label = np.zeros((10000, 10))
 	for i in range(10000):
 		label[i][y_test[i]] = 1
 
-	X_test = np.array(X_test)
-	X_test = np.reshape(X_test, (10000, 3072))
-	print(X_test.shape)
-	X_test = np.array(_preprocess(X_test))
+	sess = tf.Session()
+	parameter_path = "checkpoint" + model_name + "/variable.ckpt"
+	path_exists = "checkpoint" + model_name
 
+	if model_name == "lenet":
+		model = Model()
+	elif model_name == "vgg19":
+		model = Model_cifar10()
+		X_train = np.array(X_train)
+		X_train = np.reshape(X_train, (50000, 3072))
+		X_train = np.array(_preprocess(X_train))
+		X_test = np.array(X_test)
+		X_test = np.reshape(X_test, (10000, 3072))
+		X_test = np.array(_preprocess(X_test))
 
 	saver = tf.train.Saver()
 	if os.path.exists(path_exists):
@@ -149,9 +96,10 @@ def main():
 		sess.run(tf.global_variables_initializer())
 		print('init all the weight')
 
-	train = Trainer(lenet, sess, saver, X_train, y_train, X_test, label)
+	train = Trainer(model, sess, saver, X_train, y_train, X_test, label)
 	save_path = saver.save(sess, parameter_path)
 
 
 if __name__ == '__main__':
-	main()
+	model_name = sys.argv[1]
+	main(model_name)
