@@ -14,7 +14,7 @@ class Model:
         self.global_step = tf.Variable(0.0, trainable=False, dtype=tf.float32)
 
         self.batch_size = config.batch_size
-        self.learning_rate = config.learning_rate
+        self.learning_rate = 5e-4
         self.lr = self.learning_rate
 
         with tf.variable_scope("Lenet") as scope:
