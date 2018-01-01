@@ -45,10 +45,10 @@ def _preprocess(images_1d, n_labels=10, dshape=(32, 32, 3),
     #images = subtract_mean_rgb(images_rescaled)
     return images
 
-USE_OPENCV = false
+USE_OPENCV = 0
 
 def cv_rotate(img, angle):
-    if USE_OPENCV:
+    if USE_OPENCV == 1:
         # img = img.transpose(1, 2, 0) / 255.
         # center = (img.shape[0] // 2, img.shape[1] // 2)
         # r = cv.getRotationMatrix2D(center, angle, 1.0)
