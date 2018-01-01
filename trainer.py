@@ -74,8 +74,9 @@ def main(model_name):
 
 	mean = np.mean([x for x in X_train], axis=(0,1,2))
 	std = np.std([x for x in X_train], axis=(0,1,2))
-	print(mean.shape)
-	print(std.shape)
+	print(mean)
+	print(std)
+	return ;
 
 	sess = tf.Session()
 	parameter_path = "checkpoint_" + model_name + "/variable.ckpt"
