@@ -76,7 +76,7 @@ def main(model_name):
 	x_std = np.std([x for x in X_train], axis=(0,1,2))
 	res = []
 	for x in X_train:
-		img = transform(x, x_mean, x_std, expand_ratio, crop_size=(28,28))
+		img = transform(x, x_mean, x_std, expand_ratio=1.2, crop_size=(28,28))
 		res.append(img)
 	res = np.array(res)
 	print(img)
