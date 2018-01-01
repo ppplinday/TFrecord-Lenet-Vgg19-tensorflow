@@ -160,8 +160,8 @@ def transform(inputs, mean, std, random_angle=15., pca_sigma=255., expand_ratio=
 		img = pca_lighting(img, pca_sigma)
 
 	# Standardization
-	#img -= mean[None, None, :]
-	#img /= std[None, None, :]
+	img -= mean[None, None, :]
+	img /= std[None, None, :]
 
 	if train == True:
 		img = random_flip(img)
@@ -170,4 +170,9 @@ def transform(inputs, mean, std, random_angle=15., pca_sigma=255., expand_ratio=
 		if tuple(crop_size) != (32, 32):
 			img = random_crop(img, crop_size)
 
+	return img
+
+def transform_test(inputs, mean, std, random_angle=15., pca_sigma=255., expand_ratio=1.0, crop_size=(32, 32), train=True):
+	img = inputs
+	img = random_crop(img, crop_size)
 	return img
