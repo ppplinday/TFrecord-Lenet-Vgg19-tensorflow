@@ -7,8 +7,8 @@ class Model:
     def __init__(self,
                  is_train=True):
 
-        self.input_image = tf.placeholder(tf.float32, [None, 32, 32, 3])
-        self.images = tf.reshape(self.input_image, [-1, 32, 32, 3])
+        self.input_image = tf.placeholder(tf.float32, [None, 28, 28, 3])
+        self.images = tf.reshape(self.input_image, [-1, 28, 28, 3])
         self.input_label = tf.placeholder(tf.float32, [None, 10])
         self.labels = tf.cast(self.input_label, tf.int32)
         self.global_step = tf.Variable(0.0, trainable=False, dtype=tf.float32)
@@ -33,13 +33,14 @@ class Model:
     def build(self, is_train=True):
 
         with slim.arg_scope([slim.conv2d], padding='VALID', weights_initializer=tf.truncated_normal_initializer(stddev=0.02)):
-            net = slim.conv2d(self.images,6,[5,5],1,scope='conv1')
+            net = slim.conv2d(self.images, 32, [5,5], 1, padding='SAME', activation_fn=tf.nn.relu, scope='conv1')
             net = slim.max_pool2d(net, [2, 2], scope='pool2')
-            net = slim.conv2d(net,16,[5,5],1,scope='conv3')
+            net = slim.conv2d(net, 32, [5,5], 1, padding='SAME', activation_fn=tf.nn.relu, scope='conv3')
             net = slim.max_pool2d(net, [2, 2], scope='pool4')
-            net = slim.conv2d(net,120,[5,5],1,scope='conv5')
+            net = slim.conv2d(net, 64, [5,5], 1, padding='SAME', activation_fn=tf.nn.relu, scope='conv5')
             net = slim.flatten(net, scope='flat6')
-            net = slim.fully_connected(net, 84, scope='fc7')
+            net = slim.fully_connected(net, 84, activation_fn=tf.nn.relu,, scope='fc7')
+            net = slim.dropout(net, 0.5, is_training=is_train)
             digits = slim.fully_connected(net, 10, scope='fc8')
         return digits
 

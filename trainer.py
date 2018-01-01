@@ -91,7 +91,7 @@ def main(model_name):
 	X_test = y_res
 	print(X_train.shape)
 	print(X_test.shape)
-	return ;
+	#return ;
 
 	sess = tf.Session()
 	parameter_path = "checkpoint_" + model_name + "/variable.ckpt"
