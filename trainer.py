@@ -76,6 +76,9 @@ def main(model_name):
 	std = np.std([x for x in X_train], axis=(0,1,2))
 	print(mean)
 	print(std)
+	res = []
+	for x in X_train:
+		print(x.shape)
 	img = transform(X_train, mean, std)
 	print(img.shape)
 	return ;
