@@ -1,3 +1,4 @@
+import six
 import random
 import numpy as np
 from scipy.misc import imresize
@@ -114,6 +115,36 @@ def random_flip(img):
 		img = img[:, ::-1, :]
 	return img
 
+def random_expand(img, max_ratio=4):
+	H,W,C = img.shape
+	ratio = random.uniform(1, max_ratio)
+	out_H, out_W = int(H * ratio), int(W * ratio)
+
+	x_offset = random.randint(0, out_H - H)
+	y_offset = random.randint(0, out_W - W)
+
+	out_img = np.empty((out_H, out_W, C), dtype=img.dtype)
+	out_img[:] = np.array(0).reshape((1, 1, -1))
+	out_img[y_offset:y_offset + H, x_offset:x_offset + W, :] = img
+
+def random_crop(img, size):
+	H, W = size
+	if img.shape[0] == H:
+		x_offset = 0
+	else:
+		x_offset = random.choice(img.shape[0] - H)
+	x_slice = slice(x_offset, x_offset + H)
+
+	if img.shape[1] == W:
+		y_offset = 0
+	else:
+		y_offset = random.choice(img.shape[1] - W)
+	y_slice = slice(y_offset, y_offset + W)
+
+	img = img[x_slice, y_slice, :]
+	return img
+
+
 def transform(inputs, mean, std, random_angle=15., pca_sigma=255., expand_ratio=1.0, crop_size=(32, 32), train=True):
 	img = inputs
 
@@ -128,5 +159,9 @@ def transform(inputs, mean, std, random_angle=15., pca_sigma=255., expand_ratio=
 
 	if train == True:
 		img = random_flip(img)
+		if expand_ratio > 1:
+			img = random_expand(img, expand_ratio)
+		if tuple(crop_size) != (32, 32):
+			img = random_crop(img, crop_size)
 
 	return img

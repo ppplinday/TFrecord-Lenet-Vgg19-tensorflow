@@ -78,7 +78,7 @@ def main(model_name):
 	print(std)
 	res = []
 	for x in X_train:
-		img = transform(x, mean, std)
+		img = transform(x, mean, std, crop_size=(28,28))
 		res.append(img)
 	res = np.array(res)
 	print(res.shape)
