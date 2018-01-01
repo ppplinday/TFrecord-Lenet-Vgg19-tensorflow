@@ -72,15 +72,14 @@ def main(model_name):
 	for i in range(10000):
 		label[i][y_test[i]] = 1
 
-	mean = np.mean([x for x in X_train], axis=(0,1,2))
-	std = np.std([x for x in X_train], axis=(0,1,2))
-	print(mean)
-	print(std)
+	x_mean = np.mean([x for x in X_train], axis=(0,1,2))
+	x_std = np.std([x for x in X_train], axis=(0,1,2))
 	res = []
 	for x in X_train:
-		img = transform(x, mean, std, crop_size=(28,28))
+		img = transform(x, x_mean, x_std, expand_ratio, crop_size=(28,28))
 		res.append(img)
 	res = np.array(res)
+	print(img)
 	print(res.shape)
 	return ;
 
