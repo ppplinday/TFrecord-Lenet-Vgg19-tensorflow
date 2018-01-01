@@ -55,6 +55,7 @@ def cv_rotate(img, angle):
         # img = cv.warpAffine(img, r, img.shape[:2])
         # img = img.transpose(2, 0, 1) * 255.
         # img = img.astype(np.float32)
+        a = 1
     else:
         # scikit-image's rotate function is almost 7x slower than OpenCV
         img = img.transpose(1, 2, 0) / 255.
