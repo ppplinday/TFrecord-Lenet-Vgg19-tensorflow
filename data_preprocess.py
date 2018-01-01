@@ -127,6 +127,8 @@ def random_expand(img, max_ratio=4):
 	out_img[:] = np.array(0).reshape((1, 1, -1))
 	out_img[y_offset:y_offset + H, x_offset:x_offset + W, :] = img
 
+	return out_img
+
 def random_crop(img, size):
 	H, W = size
 	if img.shape[0] == H:
