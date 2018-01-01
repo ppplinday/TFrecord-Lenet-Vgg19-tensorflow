@@ -76,6 +76,8 @@ def main(model_name):
 	std = np.std([x for x in X_train], axis=(0,1,2))
 	print(mean)
 	print(std)
+	img = transform(X_train, mean, std)
+	print(img.shape)
 	return ;
 
 	sess = tf.Session()

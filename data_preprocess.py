@@ -118,3 +118,5 @@ def transform(inputs, mean, std, random_angle=15., pca_sigma=255., expand_ratio=
     # Color augmentation
 	if train and pca_sigma != 0:
 		img = pca_lighting(img, pca_sigma)
+
+	return img
