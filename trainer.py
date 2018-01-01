@@ -78,8 +78,8 @@ def main(model_name):
 	print(std)
 	res = []
 	for x in X_train:
-		print(x.shape)
-	img = transform(X_train, mean, std)
+		img = trainsform(x, mean, std)
+		res.append(img)
 	print(img.shape)
 	return ;
 
