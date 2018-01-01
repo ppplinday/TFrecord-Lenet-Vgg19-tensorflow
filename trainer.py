@@ -72,7 +72,7 @@ def main(model_name):
 	for i in range(10000):
 		label[i][y_test[i]] = 1
 
-	mean = np.mean(for x in X_train], axis=(0, 1, 2))
+	mean = np.mean([for x in X_train], axis=(0, 1, 2))
     std = np.std([for x in X_train], axis=(0, 1, 2))
     print(mean.shape)
     print(std.shape)
