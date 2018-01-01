@@ -26,8 +26,8 @@ class Model:
         self.train_accuracy = tf.reduce_mean(tf.cast(self.correct_prediction, "float"))
 
         self.loss = slim.losses.softmax_cross_entropy(self.train_digits, self.labels)
-        self.lr = tf.train.exponential_decay(self.learning_rate, self.global_step, 780*30, 0.5, staircase=True)
-        self.train_op = tf.train.AdamOptimizer(self.lr).minimize(self.loss)
+        self.lr = tf.train.exponential_decay(self.learning_rate, self.global_step, 780*50, 0.5, staircase=True)
+        self.train_op = tf.train.AdamOptimizer(self.lr).minimize(self.loss, global_step=self.global_step)
 
 
     def build(self, is_train=True):
