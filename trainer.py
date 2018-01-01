@@ -74,14 +74,21 @@ def main(model_name):
 
 	x_mean = np.mean([x for x in X_train], axis=(0,1,2))
 	x_std = np.std([x for x in X_train], axis=(0,1,2))
-	res = []
+	x_res = []
 	for x in X_train:
 		img = transform(x, x_mean, x_std, expand_ratio=1.2, crop_size=(28,28))
-		res.append(img)
-	res = np.array(res)
-	print(img)
-	print(res.shape)
-	return ;
+		x_res.append(img)
+	x_res = np.array(x_res)
+	X_train = x_res
+
+	y_mean = np.mean([y for y in X_test], axis=(0,1,2))
+	y_std = np.std([y for y in X_test], axis=(0,1,2))
+	y_res = []
+	for y in X_test:
+		img = transform(y, y_mean, y_std, expand_ratio=1.2, crop_size=(28,28))
+		y_res.append(img)
+	y_res = np.array(y_res)
+	X_test = y_res
 
 	sess = tf.Session()
 	parameter_path = "checkpoint_" + model_name + "/variable.ckpt"
