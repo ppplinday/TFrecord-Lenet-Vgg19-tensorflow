@@ -158,7 +158,8 @@ def transform(inputs, mean, std, random_angle=15., pca_sigma=255., expand_ratio=
 		img = pca_lighting(img, pca_sigma)
 
 	# Standardization
-	img -= mean[]
+	img -= mean[None, None, :]
+	img /= std[None, None, :]
 
 	if train == True:
 		img = random_flip(img)
