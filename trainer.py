@@ -14,7 +14,7 @@ from load_data import load_CIFAR10
 from model import Model
 from cifar10_model import Model_cifar10
 import config
-from data_preprocess import _preprocess 
+from data_preprocess import _preprocess, transform
 
 class Trainer:
 
