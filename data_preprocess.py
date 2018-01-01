@@ -127,6 +127,6 @@ def transform(inputs, mean, std, random_angle=15., pca_sigma=255., expand_ratio=
 		img = pca_lighting(img, pca_sigma)
 
 	if train == True:
-		img = 
+		img = random_flip(img)
 
 	return img
