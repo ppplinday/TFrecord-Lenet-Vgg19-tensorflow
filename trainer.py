@@ -80,7 +80,7 @@ def main(model_name):
 	for x in X_train:
 		img = transform(x, mean, std)
 		res.append(img)
-	print(img.shape)
+	print(res.shape)
 	return ;
 
 	sess = tf.Session()
