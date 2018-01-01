@@ -89,6 +89,9 @@ def main(model_name):
 		y_res.append(img)
 	y_res = np.array(y_res)
 	X_test = y_res
+	print(X_train.shape)
+	print(X_test.shape)
+	return ;
 
 	sess = tf.Session()
 	parameter_path = "checkpoint_" + model_name + "/variable.ckpt"
