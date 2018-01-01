@@ -58,9 +58,9 @@ def cv_rotate(img, angle):
         a = 1
     else:
         # scikit-image's rotate function is almost 7x slower than OpenCV
-        img = img.transpose(1, 2, 0) / 255.
+        img = img / 255.
         img = skimage_transform.rotate(img, angle, mode='edge')
-        img = img.transpose(2, 0, 1) * 255.
+        img = img * 255.
         img = img.astype(np.float32)
     return img
 
@@ -103,7 +103,7 @@ def pca_lighting(img, sigma, eigen_value=None, eigen_vector=None):
     alpha = np.random.normal(0, sigma, size=3)
 
     img = img.copy()
-    img += eigen_vector.dot(eigen_value * alpha).reshape((-1, 1, 1))
+    img += eigen_vector.dot(eigen_value * alpha).reshape((1, 1, 3))
 
     return img
 
