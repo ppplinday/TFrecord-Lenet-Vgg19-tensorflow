@@ -1,3 +1,4 @@
+import random
 import numpy as np
 from scipy.misc import imresize
 from skimage import transform as skimage_transform
@@ -107,6 +108,12 @@ def pca_lighting(img, sigma, eigen_value=None, eigen_vector=None):
 
     return img
 
+def random_flip(img):
+	ccc = random.choice([True, False])
+	if ccc == True:
+		img = img[:, ::-1, :]
+	return img
+
 def transform(inputs, mean, std, random_angle=15., pca_sigma=255., expand_ratio=1.0, crop_size=(32, 32), train=True):
 	img = inputs
 
@@ -118,5 +125,8 @@ def transform(inputs, mean, std, random_angle=15., pca_sigma=255., expand_ratio=
     # Color augmentation
 	if train and pca_sigma != 0:
 		img = pca_lighting(img, pca_sigma)
+
+	if train == True:
+		img = 
 
 	return img
