@@ -112,9 +112,9 @@ def transform(inputs, mean, std, random_angle=15., pca_sigma=255., expand_ratio=
 
 	# Random rotate
 	if random_angle != 0:
-        angle = np.random.uniform(-random_angle, random_angle)
-        img = cv_rotate(img, angle)
+		angle = np.random.uniform(-random_angle, random_angle)
+		img = cv_rotate(img, angle)
 
     # Color augmentation
-    if train and pca_sigma != 0:
-    	img = pca_lighting(img, pca_sigma)
+	if train and pca_sigma != 0:
+		img = pca_lighting(img, pca_sigma)
