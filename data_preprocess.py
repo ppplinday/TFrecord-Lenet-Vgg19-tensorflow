@@ -132,13 +132,13 @@ def random_crop(img, size):
 	if img.shape[0] == H:
 		x_offset = 0
 	else:
-		x_offset = random.choice(img.shape[0] - H)
+		x_offset = random.choice(range(img.shape[0] - H))
 	x_slice = slice(x_offset, x_offset + H)
 
 	if img.shape[1] == W:
 		y_offset = 0
 	else:
-		y_offset = random.choice(img.shape[1] - W)
+		y_offset = random.choice(range(img.shape[1] - W))
 	y_slice = slice(y_offset, y_offset + W)
 
 	img = img[x_slice, y_slice, :]
