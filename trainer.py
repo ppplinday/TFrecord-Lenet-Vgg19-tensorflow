@@ -85,7 +85,7 @@ def main(model_name):
 
 	#X_train = pro(X_train)
 
-	X_test = pro(X_test)
+	X_test = pro(X_test, train=False)
 	print(X_train.shape)
 	print(X_test.shape)
 	#return ;
