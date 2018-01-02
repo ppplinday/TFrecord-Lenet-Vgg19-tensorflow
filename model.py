@@ -27,12 +27,12 @@ class Model:
 
         self.loss = slim.losses.softmax_cross_entropy(self.train_digits, self.labels)
         self.lr = tf.train.exponential_decay(self.learning_rate, self.global_step, 390*50, 0.5, staircase=True)
-        self.train_op = tf.train.AdamOptimizer(self.lr).minimize(self.loss, global_step=self.global_step)
+        self.train_op = tf.train.MomentumOptimizer(self.lr, 0.9).minimize(self.loss, global_step=self.global_step)
 
 
     def build(self, is_train=True):
 
-        with slim.arg_scope([slim.conv2d], padding='VALID', weights_initializer=tf.truncated_normal_initializer(stddev=0.02)):
+        with slim.arg_scope([slim.conv2d], padding='VALID', weights_initializer=tf.truncated_normal_initializer(stddev=0.01)):
             net = slim.conv2d(self.images, 32, [5,5], 1, padding='SAME', activation_fn=tf.nn.relu, scope='conv1')
             net = slim.max_pool2d(net, [2, 2], scope='pool2')
             net = slim.conv2d(net, 32, [5,5], 1, padding='SAME', activation_fn=tf.nn.relu, scope='conv3')
