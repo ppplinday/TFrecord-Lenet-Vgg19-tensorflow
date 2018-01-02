@@ -16,6 +16,16 @@ from cifar10_model import Model_cifar10
 import config
 from data_preprocess import _preprocess, transform, transform_test
 
+def pro(X_train, train=True):
+	x_mean = np.mean([x for x in X_train], axis=(0,1,2))
+	x_std = np.std([x for x in X_train], axis=(0,1,2))
+	x_res = []
+	for x in X_train:
+		img = transform(x, x_mean, x_std, expand_ratio=1.2, crop_size=(28,28), train=train)
+		x_res.append(img)
+	x_res = np.array(x_res)
+	return x_res
+
 class Trainer:
 
 	def __init__(self, network, sess, saver, dataset_xtrain, dataset_ytrain, X_test, y_test):
@@ -39,6 +49,7 @@ class Trainer:
 				start = iter * self.batch_size
 				batch = self.dataset_xtrain[start:start + self.batch_size]
 				label = self.dataset_ytrain[start:start + self.batch_size]
+				batch = pro(batch)
 
 				self.sess.run(self.model.train_op, feed_dict={self.model.input_image: batch, self.model.input_label: label})
 
@@ -72,23 +83,9 @@ def main(model_name):
 	for i in range(10000):
 		label[i][y_test[i]] = 1
 
-	x_mean = np.mean([x for x in X_train], axis=(0,1,2))
-	x_std = np.std([x for x in X_train], axis=(0,1,2))
-	x_res = []
-	for x in X_train:
-		img = transform(x, x_mean, x_std, expand_ratio=1.2, crop_size=(28,28))
-		x_res.append(img)
-	x_res = np.array(x_res)
-	X_train = x_res
+	#X_train = pro(X_train)
 
-	y_mean = np.mean([y for y in X_test], axis=(0,1,2))
-	y_std = np.std([y for y in X_test], axis=(0,1,2))
-	y_res = []
-	for y in X_test:
-		img = transform(y, y_mean, y_std, expand_ratio=1.2, crop_size=(28,28), train=False)
-		y_res.append(img)
-	y_res = np.array(y_res)
-	X_test = y_res
+	X_test = pro(X_test)
 	print(X_train.shape)
 	print(X_test.shape)
 	#return ;
