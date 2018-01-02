@@ -7,18 +7,8 @@ import tensorflow.contrib.slim as slim
 from load_data import load_CIFAR10
 from model import Model
 from cifar10_model import Model_cifar10
-from data_preprocess import _preprocess, transform, transform_test
+from data_preprocess import _preprocess, transform, transform_test, data_preprocess
 import config
-
-def pro(X_train, XX, train=True):
-	x_mean = np.mean([x for x in XX], axis=(0,1,2))
-	x_std = np.std([x for x in XX], axis=(0,1,2))
-	x_res = []
-	for x in X_train:
-		img = transform(x, x_mean, x_std, expand_ratio=1.2, crop_size=(28,28), train=train)
-		x_res.append(img)
-	x_res = np.array(x_res)
-	return x_res
 
 def main(model_name):
 	cifar10_dir = 'cifar-10-batches-py'
@@ -32,8 +22,7 @@ def main(model_name):
 	parameter_path = "checkpoint_" + model_name + "/variable.ckpt"
 	if model_name == "lenet":
 		print('loaded the lenet model')
-		X_test = pro(X_test, X_train, train=False)
-		print(X_test.shape)
+		X_test = data_preprocess(X_test, X_train, train=False)
 		model = Model()
 	elif model_name == "vgg19":
 		print('loaded the vgg19 model')

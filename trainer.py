@@ -14,17 +14,7 @@ from load_data import load_CIFAR10
 from model import Model
 from cifar10_model import Model_cifar10
 import config
-from data_preprocess import _preprocess, transform, transform_test
-
-def pro(X_train, train=True):
-	x_mean = np.mean([x for x in X_train], axis=(0,1,2))
-	x_std = np.std([x for x in X_train], axis=(0,1,2))
-	x_res = []
-	for x in X_train:
-		img = transform(x, x_mean, x_std, expand_ratio=1.2, crop_size=(28,28), train=train)
-		x_res.append(img)
-	x_res = np.array(x_res)
-	return x_res
+from data_preprocess import _preprocess, transform, transform_test, data_preprocess
 
 class Trainer:
 
@@ -49,7 +39,7 @@ class Trainer:
 				start = iter * self.batch_size
 				batch = self.dataset_xtrain[start:start + self.batch_size]
 				label = self.dataset_ytrain[start:start + self.batch_size]
-				batch = pro(batch)
+				batch = data_preprocess(batch)
 
 				self.sess.run(self.model.train_op, feed_dict={self.model.input_image: batch, self.model.input_label: label})
 
@@ -85,7 +75,7 @@ def main(model_name):
 
 	#X_train = pro(X_train)
 
-	X_test = pro(X_test, train=False)
+	X_test = data_preprocess(X_test, train=False)
 	print(X_train.shape)
 	print(X_test.shape)
 	#return ;
