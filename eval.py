@@ -32,7 +32,7 @@ def main(model_name):
 	parameter_path = "checkpoint_" + model_name + "/variable.ckpt"
 	if model_name == "lenet":
 		print('loaded the lenet model')
-		X_test = transform_test(X_test, 1, 1, crop_size=(28,28), train=False)
+		X_test = pro(X_test, train=False)
 		print(X_test.shape)
 		model = Model()
 	elif model_name == "vgg19":
