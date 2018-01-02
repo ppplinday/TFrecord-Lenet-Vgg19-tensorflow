@@ -10,9 +10,9 @@ from cifar10_model import Model_cifar10
 from data_preprocess import _preprocess, transform, transform_test
 import config
 
-def pro(X_train, train=True):
-	x_mean = np.mean([x for x in X_train], axis=(0,1,2))
-	x_std = np.std([x for x in X_train], axis=(0,1,2))
+def pro(X_train, XX, train=True):
+	x_mean = np.mean([x for x in XX], axis=(0,1,2))
+	x_std = np.std([x for x in XX], axis=(0,1,2))
 	x_res = []
 	for x in X_train:
 		img = transform(x, x_mean, x_std, expand_ratio=1.2, crop_size=(28,28), train=train)
@@ -32,7 +32,7 @@ def main(model_name):
 	parameter_path = "checkpoint_" + model_name + "/variable.ckpt"
 	if model_name == "lenet":
 		print('loaded the lenet model')
-		X_test = pro(X_test, train=True)
+		X_test = pro(X_test, X_train, train=True)
 		print(X_test.shape)
 		model = Model()
 	elif model_name == "vgg19":
