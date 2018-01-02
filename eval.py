@@ -15,7 +15,7 @@ def pro(X_train, train=True):
 	x_std = np.std([x for x in X_train], axis=(0,1,2))
 	x_res = []
 	for x in X_train:
-		img = transform_test(x, x_mean, x_std, expand_ratio=1.2, crop_size=(28,28), train=train)
+		img = transform(x, x_mean, x_std, expand_ratio=1.2, crop_size=(28,28), train=train)
 		x_res.append(img)
 	x_res = np.array(x_res)
 	return x_res
