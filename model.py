@@ -39,7 +39,7 @@ class Model:
             net = slim.max_pool2d(net, [2, 2], scope='pool4')
             net = slim.conv2d(net, 64, [5,5], 1, padding='SAME', activation_fn=tf.nn.relu, scope='conv5')
             net = slim.flatten(net, scope='flat6')
-            net = slim.fully_connected(net, 84, activation_fn=tf.nn.relu, scope='fc7')
+            net = slim.fully_connected(net, 4096, activation_fn=tf.nn.relu, scope='fc7')
             net = slim.dropout(net, 0.5, is_training=is_train)
             digits = slim.fully_connected(net, 10, scope='fc8')
         return digits
