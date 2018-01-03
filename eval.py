@@ -6,7 +6,7 @@ import tensorflow.contrib.slim as slim
 
 from load_data import load_CIFAR10
 from model_lenet import Model_Lenet
-from cifar10_model import Model_cifar10
+from model_vgg19 import Model_Vgg19
 from data_preprocess import _preprocess, transform, transform_test, data_preprocess
 import config
 
@@ -22,7 +22,7 @@ def main(model_name):
 		model = Model_Lenet()
 	elif model_name == "vgg19":
 		print('loaded the vgg19 model')
-		model = Model_cifar10()
+		model = Model_Vgg19()
 		X_test = np.array(X_test)
 		X_test = np.reshape(X_test, (10000, 3072))
 		X_test = np.array(_preprocess(X_test))
