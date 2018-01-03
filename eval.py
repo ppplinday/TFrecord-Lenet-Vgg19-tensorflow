@@ -19,7 +19,7 @@ def main(model_name):
 	if model_name == "lenet":
 		print('loaded the lenet model')
 		X_test = data_preprocess(X_test, X_train, train=False)
-		model = Model()
+		model = Model_Lenet()
 	elif model_name == "vgg19":
 		print('loaded the vgg19 model')
 		model = Model_cifar10()
@@ -34,11 +34,11 @@ def main(model_name):
 	saver.restore(sess, parameter_path)
 	print('loaded the weight')
 	sum = 0.0;
-	for i in range(10000):
+	for i in range(X_test.shape[0]):
 		accurary = sess.run([model.train_accuracy], 
 			feed_dict={model.input_image: X_test[i:i + 1], model.input_label: label[i: i + 1]})
 		sum += accurary[0]
-	print('Accurary: {}'.format(sum / 10000.0))
+	print('Accurary: {}'.format(sum / X_test.shape[0]))
 
 if __name__ == "__main__":
 	model_name = sys.argv[1]
