@@ -34,7 +34,7 @@ class Model_Vgg19:
 
     def build(self, is_train=True):
 
-        with slim.arg_scope([slim.conv2d], padding='VALID', weights_initializer=tf.truncated_normal_initializer(stddev=0.001)):
+        with slim.arg_scope([slim.conv2d], padding='VALID', weights_initializer=tf.truncated_normal_initializer(stddev=0.1)):
             net = slim.conv2d(self.images, 64, [3, 3], 1, padding='SAME', scope='conv1_1')
             net = slim.batch_norm(net, activation_fn=tf.nn.relu, scope='bn1_1')
             net = slim.conv2d(net, 64, [3, 3], 1, padding='SAME', scope='conv1_2')
