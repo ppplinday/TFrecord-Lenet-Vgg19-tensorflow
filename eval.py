@@ -36,7 +36,7 @@ def main(model_name):
 	sum = 0.0;
 	for i in range(X_test.shape[0]):
 		accurary = sess.run([model.train_accuracy], 
-			feed_dict={model.input_image: X_test[i:i + 1], model.input_label: label[i: i + 1]})
+			feed_dict={model.input_image: X_test[i:i + 1], model.input_label: Y_test[i: i + 1]})
 		sum += accurary[0]
 	print('Accurary: {}'.format(sum / X_test.shape[0]))
 
