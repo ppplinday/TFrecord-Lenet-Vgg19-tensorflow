@@ -88,7 +88,7 @@ def main(model_name):
 		sess.run(tf.global_variables_initializer())
 		print('init all the weight')
 
-	train = Trainer(model, sess, saver, X_train, Y_train, X_test, Y_test)
+	train = Trainer(model, sess, X_train, Y_train, X_test, Y_test)
 	save_path = saver.save(sess, parameter_path)
 
 
