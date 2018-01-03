@@ -43,11 +43,11 @@ class Trainer:
 					print('[Epoch {}] Iter: {} Loss: {} Accurary: {} step: {} lr: {}'.format(epoch, iter, loss, accurary,step, lr))
 
 			sum = 0.0;
-			for i in range(X_test.shape[0]):
+			for i in range(self.X_test.shape[0]):
 				test_accurary = self.sess.run([self.model.train_accuracy], 
 					feed_dict={self.model.input_image: self.X_test[i:i + 1], self.model.input_label: self.Y_test[i: i + 1]})
 				sum += test_accurary[0]
-			print('Accurary: {}'.format(sum / X_test.shape[0]))
+			print('Accurary: {}'.format(sum / self.X_test.shape[0]))
 
 		print('Done! End of training!')
 
