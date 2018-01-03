@@ -12,6 +12,7 @@ class Model_Lenet:
         self.labels = tf.cast(self.input_label, tf.int32)
         self.global_step = tf.Variable(0.0, trainable=False, dtype=tf.float32)
 
+        self.num_sample = config.num_sample
         self.batch_size = config.batch_size
         self.learning_rate = config.learning_rate
         
