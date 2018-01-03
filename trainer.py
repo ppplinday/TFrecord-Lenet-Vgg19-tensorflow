@@ -1,34 +1,26 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
-from six.moves import xrange
-
-import tensorflow.contrib.slim as slim
-
 import os
 import sys
+import config
 import numpy as np
 import tensorflow as tf
+import tensorflow.contrib.slim as slim
 from load_data import load_CIFAR10
-from model import Model
+from model_lenet import Model_Lenet
 from cifar10_model import Model_cifar10
-import config
 from data_preprocess import _preprocess, transform, transform_test, data_preprocess
 
 class Trainer:
 
-	def __init__(self, network, sess, saver, dataset_xtrain, dataset_ytrain, X_test, y_test):
-		self.learning_rate = config.learning_rate
+	def __init__(self, network, sess, X_train, Y_train, X_test, Y_test):
 		self.batch_size = config.batch_size
 		self.num_epoch = config.num_epoch
 		self.num_sample = config.num_sample
 		self.model = network
 		self.sess = sess
-		self.dataset_xtrain = dataset_xtrain
-		self.dataset_ytrain = dataset_ytrain
+		self.X_train = X_train
+		self.Y_train = Y_train
 		self.X_test = X_test
-		self.y_test = y_test
+		self.Y_test = Y_test
 
 		self.train()
 
@@ -37,13 +29,13 @@ class Trainer:
 		for epoch in range(self.num_epoch):
 			for iter in range(self.num_sample // self.batch_size):
 				start = iter * self.batch_size
-				batch = self.dataset_xtrain[start:start + self.batch_size]
-				label = self.dataset_ytrain[start:start + self.batch_size]
-				batch = data_preprocess(batch)
+				batch_x = self.X_train[start:start + self.batch_size]
+				batch_y = self.Y_train[start:start + self.batch_size]
+				batch_x = data_preprocess(batch_x)
 
-				self.sess.run(self.model.train_op, feed_dict={self.model.input_image: batch, self.model.input_label: label})
+				self.sess.run(self.model.train_op, feed_dict={self.model.input_image: batch_x, self.model.input_label: batch_y})
 
-				if iter % 100 == 0 or iter == 390:
+				if iter % 100 == 0:
 					loss, accurary, step, lr = self.sess.run([self.model.loss, self.model.train_accuracy, 
 						self.model.global_step, self.model.lr],
 						feed_dict={self.model.input_image: batch, self.model.input_label: label})
@@ -51,29 +43,17 @@ class Trainer:
 					print('[Epoch {}] Iter: {} Loss: {} Accurary: {} step: {} lr: {}'.format(epoch, iter, loss, accurary,step, lr))
 
 			sum = 0.0;
-			for i in range(10000):
-				accurary = self.sess.run([self.model.train_accuracy], 
-					feed_dict={self.model.input_image: self.X_test[i:i + 1], self.model.input_label: self.y_test[i: i + 1]})
-				sum += accurary[0]
-			print('Accurary: {}'.format(sum / 10000.0))
+			for i in range(X_test.shape[0]):
+				test_accurary = self.sess.run([self.model.train_accuracy], 
+					feed_dict={self.model.input_image: self.X_test[i:i + 1], self.model.input_label: self.Y_test[i: i + 1]})
+				sum += test_accurary[0]
+			print('Accurary: {}'.format(sum / X_test.shape[0]))
 
 		print('Done! End of training!')
 
 def main(model_name):
 	cifar10_dir = 'cifar-10-batches-py'
-	X_train, y_train, X_test, y_test = load_CIFAR10(cifar10_dir)
-
-	# y_train = tf.one_hot(y_train, 10)
-	label = np.zeros((50000, 10))
-	for i in range(50000):
-		label[i, y_train[i]] = 1.0
-	y_train = label
-
-	label = np.zeros((10000, 10))
-	for i in range(10000):
-		label[i][y_test[i]] = 1
-
-	#X_train = pro(X_train)
+	X_train, Y_train, X_test, Y_test = load_CIFAR10(cifar10_dir)
 
 	X_test = data_preprocess(X_test, train=False)
 	print(X_train.shape)
@@ -86,7 +66,7 @@ def main(model_name):
 
 	if model_name == "lenet":
 		print('begin to train lenet model')
-		model = Model()
+		model = Model_Lenet()
 	elif model_name == "vgg19":
 		print('begin to train vgg19 model')
 		model = Model_cifar10()
@@ -108,7 +88,7 @@ def main(model_name):
 		sess.run(tf.global_variables_initializer())
 		print('init all the weight')
 
-	train = Trainer(model, sess, saver, X_train, y_train, X_test, label)
+	train = Trainer(model, sess, saver, X_train, Y_train, X_test, Y_test)
 	save_path = saver.save(sess, parameter_path)
 
 

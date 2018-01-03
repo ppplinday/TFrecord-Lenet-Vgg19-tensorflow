@@ -186,3 +186,9 @@ def data_preprocess(X_train, train=True):
 		x_res.append(img)
 	x_res = np.array(x_res)
 	return x_res
+
+def label_one_hot(input, num_class):
+	output = np.zeros((input.shape[0], num_class))
+	for i in range(input.shape[0]):
+		output[i, input[i]] = 1.0
+	return output

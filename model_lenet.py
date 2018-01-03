@@ -1,11 +1,10 @@
+import config
 import tensorflow as tf
 import tensorflow.contrib.slim as slim
-import config
 
-class Model:
+class Model_Lenet:
 
-    def __init__(self,
-                 is_train=True):
+    def __init__(self, is_train=True):
 
         self.input_image = tf.placeholder(tf.float32, [None, 28, 28, 3])
         self.images = tf.reshape(self.input_image, [-1, 28, 28, 3])
@@ -26,8 +25,9 @@ class Model:
         self.train_accuracy = tf.reduce_mean(tf.cast(self.correct_prediction, "float"))
 
         self.loss = slim.losses.softmax_cross_entropy(self.train_digits, self.labels)
-        self.lr = tf.train.exponential_decay(self.learning_rate, self.global_step, 390*50, 0.5, staircase=True)
-        self.train_op = tf.train.MomentumOptimizer(self.lr, 0.9).minimize(self.loss, global_step=self.global_step)
+        self.lr = tf.train.exponential_decay(self.learning_rate, self.global_step,
+         (self.num_sample // self.batch_size) * config.epoch_decay, config.learning_decay, staircase=True)
+        self.train_op = tf.train.MomentumOptimizer(self.lr, config.momentum).minimize(self.loss, global_step=self.global_step)
 
 
     def build(self, is_train=True):

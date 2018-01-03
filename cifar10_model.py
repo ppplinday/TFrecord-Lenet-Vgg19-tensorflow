@@ -5,8 +5,7 @@ import config
 
 class Model_cifar10:
 
-    def __init__(self,
-                 is_train=True):
+    def __init__(self, is_train=True):
 
         self.input_image = tf.placeholder(tf.float32, [None, 224, 224, 3])
         self.images = tf.reshape(self.input_image, [-1, 224, 224, 3])
@@ -28,9 +27,6 @@ class Model_cifar10:
         self.train_accuracy = tf.reduce_mean(tf.cast(self.correct_prediction, "float"))
 
         self.loss = slim.losses.softmax_cross_entropy(onehot_labels=self.labels, logits=self.train_digits)
-        #self.train_op = tf.train.AdamOptimizer(self.learning_rate).minimize(self.loss)
-        #lr = self.learning_rate * (0.5 ** (epoch // 30))
-        #self.global_step = tf.add(self.global_step, self.one)
         self.lr = tf.train.exponential_decay(self.learning_rate, self.global_step, 780*30, 0.5, staircase=True)
         self.train_op = tf.train.MomentumOptimizer(self.lr, 0.9).minimize(self.loss, global_step=self.global_step)
 
