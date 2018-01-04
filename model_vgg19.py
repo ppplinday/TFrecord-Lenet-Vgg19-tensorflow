@@ -17,7 +17,7 @@ class Model_Vgg19:
         self.batch_size = config.batch_size
         self.learning_rate = config.learning_rate
         
-        with tf.variable_scope("Lenet") as scope:
+        with tf.variable_scope("Vgg19") as scope:
             self.train_digits = self.build(True)
             scope.reuse_variables()
             self.pred_digits = self.build(False)

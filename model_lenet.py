@@ -33,7 +33,7 @@ class Model_Lenet:
 
     def build(self, is_train=True):
 
-        with slim.arg_scope([slim.conv2d], padding='VALID', weights_initializer=tf.truncated_normal_initializer(stddev=0.01)):
+        with slim.arg_scope([slim.conv2d], padding='VALID'):
             net = slim.conv2d(self.images, 32, [5,5], 1, padding='SAME', activation_fn=tf.nn.relu, scope='conv1')
             net = slim.max_pool2d(net, [2, 2], scope='pool2')
             net = slim.conv2d(net, 32, [5,5], 1, padding='SAME', activation_fn=tf.nn.relu, scope='conv3')
