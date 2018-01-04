@@ -35,12 +35,14 @@ class Model_Vgg19:
     def build(self, is_train=True):
 
         with slim.arg_scope([slim.conv2d], padding='VALID', weights_initializer=tf.truncated_normal_initializer(stddev=0.01)):
+            print(self.images.shape)
             net = slim.conv2d(self.images, 64, [3, 3], 1, padding='SAME', scope='conv1_1')
             net = slim.batch_norm(net, activation_fn=tf.nn.relu, scope='bn1_1')
             net = slim.conv2d(net, 64, [3, 3], 1, padding='SAME', scope='conv1_2')
             net = slim.batch_norm(net, activation_fn=tf.nn.relu, scope='bn1_2')
             net = slim.max_pool2d(net, [2, 2], scope='pool1')
             net = slim.dropout(net, 0.25, is_training=is_train, scope='drop1')
+            print(net.shape)
 
             net = slim.conv2d(net, 128, [3, 3], 1, padding='SAME', scope='conv2_1')
             net = slim.batch_norm(net, activation_fn=tf.nn.relu, scope='bn2_1')
@@ -48,6 +50,7 @@ class Model_Vgg19:
             net = slim.batch_norm(net, activation_fn=tf.nn.relu, scope='bn2_2')
             net = slim.max_pool2d(net, [2, 2], scope='pool2')
             net = slim.dropout(net, 0.25, is_training=is_train, scope='drop2')
+            print(net.shape)
 
             net = slim.conv2d(net, 256, [3, 3], 1, padding='SAME', scope='conv3_1')
             net = slim.batch_norm(net, activation_fn=tf.nn.relu, scope='bn3_1')
@@ -59,6 +62,7 @@ class Model_Vgg19:
             net = slim.batch_norm(net, activation_fn=tf.nn.relu, scope='bn3_4')
             net = slim.max_pool2d(net, [2, 2], scope='pool3')
             net = slim.dropout(net, 0.25, is_training=is_train, scope='drop3')
+            print(net.shape)
 
             net = slim.flatten(net, scope='flat')
             net = slim.fully_connected(net, 1024, activation_fn=tf.nn.relu, scope='fc1')
