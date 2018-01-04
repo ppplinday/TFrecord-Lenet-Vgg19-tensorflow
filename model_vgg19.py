@@ -16,6 +16,7 @@ class Model_Vgg19:
         self.num_sample = config.num_sample
         self.batch_size = config.batch_size
         self.learning_rate = config.learning_rate
+        print(config.learning_rate)
         
         with tf.variable_scope("Vgg19") as scope:
             self.train_digits = self.build(True)
