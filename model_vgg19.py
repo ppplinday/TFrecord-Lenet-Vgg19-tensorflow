@@ -72,7 +72,7 @@ class Model_Vgg19:
             net = slim.dropout(net, 0.5, is_training=is_train, scope='dropout7')
             print(net.shape)
 
-            digits = slim.conv2d(net, 1024, [1, 1], padding='SAME', scope='fc8')
+            digits = slim.conv2d(net, 10, [1, 1], padding='SAME', scope='fc8')
             print(digits.shape)
         return digits
 
