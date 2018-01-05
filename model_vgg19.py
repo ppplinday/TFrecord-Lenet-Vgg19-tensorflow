@@ -16,6 +16,7 @@ class Model_Vgg19:
         self.num_sample = config.num_sample
         self.batch_size = config.batch_size
         self.learning_rate = config.learning_rate
+        self.weight_decay = 0.0005
         print(config.learning_rate)
         
         with tf.variable_scope("Vgg19") as scope:
@@ -35,41 +36,43 @@ class Model_Vgg19:
 
     def build(self, is_train=True):
 
-        with slim.arg_scope([slim.conv2d], padding='VALID', weights_initializer=tf.truncated_normal_initializer(stddev=0.01)):
+        with slim.arg_scope([slim.conv2d, slim.fully_connected], 
+            activation_fn=tf.nn.relu, 
+            weights_regularizer=slim.l2_regularizer(self.weight_decay),
+            biases_initializer=tf.zeros_initializer):
             print(self.images.shape)
-            net = slim.conv2d(self.images, 64, [3, 3], 1, padding='SAME', activation_fn=tf.nn.relu, scope='conv1_1')
-            #net = slim.batch_norm(net, scope='bn1_1')
-            net = slim.conv2d(net, 64, [3, 3], 1, padding='SAME', activation_fn=tf.nn.relu, scope='conv1_2')
-            #net = slim.batch_norm(net, scope='bn1_2')
+            net = slim.repeat(self.images, 2, slim.conv2d, 64, [3, 3], padding='SAME', scope='conv1')
             net = slim.max_pool2d(net, [2, 2], scope='pool1')
-            #net = slim.dropout(net, 0.25, is_training=is_train, scope='drop1')
             print(net.shape)
 
-            net = slim.conv2d(net, 128, [3, 3], 1, padding='SAME', activation_fn=tf.nn.relu, scope='conv2_1')
-            #net = slim.batch_norm(net, scope='bn2_1')
-            net = slim.conv2d(net, 128, [3, 3], 1, padding='SAME', activation_fn=tf.nn.relu, scope='conv2_2')
-            #net = slim.batch_norm(net, scope='bn2_2')
+            net = slim.repeat(net, 2, slim.conv2d, 128, [3, 3], padding='SAME', scope='conv2')
             net = slim.max_pool2d(net, [2, 2], scope='pool2')
-            #net = slim.dropout(net, 0.25, is_training=is_train, scope='drop2')
             print(net.shape)
 
-            # net = slim.conv2d(net, 256, [3, 3], 1, padding='SAME', activation_fn=tf.nn.relu, scope='conv3_1')
-            # #net = slim.batch_norm(net, scope='bn3_1')
-            # net = slim.conv2d(net, 256, [3, 3], 1, padding='SAME', activation_fn=tf.nn.relu, scope='conv3_2')
-            # #net = slim.batch_norm(net, scope='bn3_2')
-            # net = slim.conv2d(net, 256, [3, 3], 1, padding='SAME', activation_fn=tf.nn.relu, scope='conv3_3')
-            # #net = slim.batch_norm(net, scope='bn3_3')
-            # net = slim.conv2d(net, 256, [3, 3], 1, padding='SAME', activation_fn=tf.nn.relu, scope='conv3_4')
-            # #net = slim.batch_norm(net, scope='bn3_4')
-            # net = slim.max_pool2d(net, [2, 2], scope='pool3')
-            # #net = slim.dropout(net, 0.25, is_training=is_train, scope='drop3')
-            # print(net.shape)
+            net = slim.repeat(net, 3, slim.conv2d, 256, [3, 3], padding='SAME', scope='conv3')
+            net = slim.max_pool2d(net, [2, 2], scope='pool3')
+            print(net.shape)
+            
+            net = slim.repeat(net, 3, slim.conv2d, 512, [3, 3], padding='SAME', scope='conv4')
+            net = slim.max_pool2d(net, [2, 2], scope='pool4')
+            print(net.shape)
 
-            net = slim.flatten(net, scope='flat')
-            net = slim.fully_connected(net, 1024, activation_fn=tf.nn.relu, scope='fc1')
-            net = slim.dropout(net, 0.5, is_training=is_train, scope='drop4')
-            net = slim.fully_connected(net, 1024, activation_fn=tf.nn.relu, scope='fc2')
-            net = slim.dropout(net, 0.5, is_training=is_train, scope='drop5')
-            digits = slim.fully_connected(net, 10, scope='fc3')
+            net = slim.repeat(net, 3, slim.conv2d, 512, [3, 3], padding='SAME', scope='conv5')
+            net = slim.max_pool2d(net, [2, 2], scope='pool5')
+            print(net.shape)
+
+            #net = slim.flatten(net, scope='flat')
+            #net = slim.fully_connected(net, 1024, activation_fn=tf.nn.relu, scope='fc1')
+            #net = slim.dropout(net, 0.5, is_training=is_train, scope='drop4')
+            net = slim.conv2d(net, 1024, [1, 1], padding='SAME', scope='fc6')
+            net = slim.dropout(net, dropout_keep_prob, is_training=is_training, scope='dropout6')
+            print(net.shape)
+
+            net = slim.conv2d(net, 1024, [1, 1], padding='SAME', scope='fc7')
+            net = slim.dropout(net, dropout_keep_prob, is_training=is_training, scope='dropout7')
+            print(net.shape)
+
+            digits = slim.conv2d(net, 1024, [1, 1], padding='SAME', scope='fc8')
+            print(digits.shape)
         return digits
 

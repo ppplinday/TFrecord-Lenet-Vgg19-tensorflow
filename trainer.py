@@ -11,7 +11,7 @@ from data_preprocess import _preprocess, transform, transform_test, data_preproc
 
 class Trainer:
 
-	def __init__(self, network, sess, X_train, Y_train, X_test, Y_test):
+	def __init__(self, network, sess, X_train, Y_train, X_test, Y_test, name):
 		self.batch_size = config.batch_size
 		self.num_epoch = config.num_epoch
 		self.num_sample = config.num_sample
@@ -21,6 +21,7 @@ class Trainer:
 		self.Y_train = Y_train
 		self.X_test = X_test
 		self.Y_test = Y_test
+		self.name = name
 
 		self.train()
 
@@ -31,7 +32,7 @@ class Trainer:
 				start = iter * self.batch_size
 				batch_x = self.X_train[start:start + self.batch_size]
 				batch_y = self.Y_train[start:start + self.batch_size]
-				batch_x = data_preprocess(batch_x)
+				batch_x = data_preprocess(batch_x, model=self.name)
 
 				self.sess.run(self.model.train_op, feed_dict={self.model.input_image: batch_x, self.model.input_label: batch_y})
 
@@ -55,7 +56,7 @@ def main(model_name):
 	cifar10_dir = 'cifar-10-batches-py'
 	X_train, Y_train, X_test, Y_test = load_CIFAR10(cifar10_dir)
 
-	X_test = data_preprocess(X_test, train=False)
+	X_test = data_preprocess(X_test, train=False, model=model_name)
 	print(X_train.shape)
 	print(X_test.shape)
 	#return ;
@@ -82,7 +83,7 @@ def main(model_name):
 		sess.run(tf.global_variables_initializer())
 		print('init all the weight')
 
-	train = Trainer(model, sess, X_train, Y_train, X_test, Y_test)
+	train = Trainer(model, sess, X_train, Y_train, X_test, Y_test, model_name)
 	save_path = saver.save(sess, parameter_path)
 
 

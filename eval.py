@@ -18,7 +18,7 @@ def main(model_name):
 	parameter_path = "checkpoint_" + model_name + "/variable.ckpt"
 	if model_name == "lenet":
 		print('loaded the lenet model')
-		X_test = data_preprocess(X_test, train=False)
+		X_test = data_preprocess(X_test, train=False, model=model_name)
 		model = Model_Lenet()
 	elif model_name == "vgg19":
 		print('loaded the vgg19 model')

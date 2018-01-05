@@ -177,12 +177,15 @@ def transform_test(inputs, mean, std, random_angle=15., pca_sigma=255., expand_r
 	img = random_crop(img, crop_size)
 	return img
 
-def data_preprocess(X_train, train=True):
+def data_preprocess(X_train, train=True, model='lenet'):
 	x_mean = np.mean([x for x in X_train], axis=(0,1,2))
 	x_std = np.std([x for x in X_train], axis=(0,1,2))
 	x_res = []
 	for x in X_train:
-		img = transform(x, x_mean, x_std, expand_ratio=1.2, crop_size=(28,28), train=train)
+		if model == 'lenet':
+			img = transform(x, x_mean, x_std, expand_ratio=1.2, crop_size=(28,28), train=train)
+		else:
+			img = transform(x, x_mean, x_std, expand_ratio=1.2, crop_size=(32,32), train=train)
 		x_res.append(img)
 	x_res = np.array(x_res)
 	return x_res
