@@ -33,6 +33,7 @@ class Trainer:
 				batch_x = self.X_train[start:start + self.batch_size]
 				batch_y = self.Y_train[start:start + self.batch_size]
 				batch_x = data_preprocess(batch_x, model=self.name)
+				print(batch_x.shape)
 
 				self.sess.run(self.model.train_op, feed_dict={self.model.input_image: batch_x, self.model.input_label: batch_y})
 
