@@ -169,7 +169,8 @@ def transform(inputs, mean, std, random_angle=15., pca_sigma=255., expand_ratio=
 			img = random_expand(img, expand_ratio)
 	if tuple(crop_size) != (32, 32):
 		img = random_crop(img, crop_size)
-
+	if train == True:
+		print(img.shape)
 	return img
 
 def transform_test(inputs, mean, std, random_angle=15., pca_sigma=255., expand_ratio=1.0, crop_size=(32, 32), train=True):
