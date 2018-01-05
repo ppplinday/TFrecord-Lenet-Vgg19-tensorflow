@@ -65,11 +65,11 @@ class Model_Vgg19:
             #net = slim.fully_connected(net, 1024, activation_fn=tf.nn.relu, scope='fc1')
             #net = slim.dropout(net, 0.5, is_training=is_train, scope='drop4')
             net = slim.conv2d(net, 1024, [1, 1], padding='SAME', scope='fc6')
-            net = slim.dropout(net, 0.5, is_training=is_training, scope='dropout6')
+            net = slim.dropout(net, 0.5, is_training=is_train, scope='dropout6')
             print(net.shape)
 
             net = slim.conv2d(net, 1024, [1, 1], padding='SAME', scope='fc7')
-            net = slim.dropout(net, 0.5, is_training=is_training, scope='dropout7')
+            net = slim.dropout(net, 0.5, is_training=is_train, scope='dropout7')
             print(net.shape)
 
             digits = slim.conv2d(net, 1024, [1, 1], padding='SAME', scope='fc8')
