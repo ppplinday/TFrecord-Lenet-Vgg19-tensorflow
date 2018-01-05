@@ -74,5 +74,7 @@ class Model_Vgg19:
 
             digits = slim.conv2d(net, 10, [1, 1], padding='SAME', scope='fc8')
             print(digits.shape)
+            digits = tf.reshape(digits, shape=[None, 10])
+            print(digits.shape)
         return digits
 
