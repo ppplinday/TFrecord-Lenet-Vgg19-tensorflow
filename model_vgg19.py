@@ -7,8 +7,8 @@ class Model_Vgg19:
 
     def __init__(self, is_train=True):
 
-        self.input_image = tf.placeholder(tf.float32, [None, 28, 28, 3])
-        self.images = tf.reshape(self.input_image, [-1, 28, 28, 3])
+        self.input_image = tf.placeholder(tf.float32, [None, 32, 32, 3])
+        self.images = tf.reshape(self.input_image, [-1, 32, 32, 3])
         self.input_label = tf.placeholder(tf.float32, [None, 10])
         self.labels = tf.cast(self.input_label, tf.int32)
         self.global_step = tf.Variable(0.0, trainable=False, dtype=tf.float32)
