@@ -31,6 +31,9 @@ def main():
 		x, y = load_CIFAR_batch(f)
 		convert(x, y, 'train')
 
+	xt, yt = load_CIFAR_batch(os.path.join(cifar10_dir, 'test_batch'))
+	convert(xt, yt, 'test')
+	print('finish tfrecord!')
 
 if __name__ == '__main__':
 	main()
