@@ -25,11 +25,11 @@ def convert(images, labels, name):
 
 def main():
 	cifar10_dir = 'cifar-10-batches-py'
-	for i in range(1, 6):
-		f = os.path.join(cifar10_dir, 'data_batch_%d' % (i,))
-		print('open the file: {}'.format(f))
-		x, y = load_CIFAR_batch(f)
-		convert(x, y, 'train')
+	# for i in range(1, 6):
+	# 	f = os.path.join(cifar10_dir, 'data_batch_%d' % (i,))
+	# 	print('open the file: {}'.format(f))
+	# 	x, y = load_CIFAR_batch(f)
+	# 	convert(x, y, 'train')
 
 	xt, yt = load_CIFAR_batch(os.path.join(cifar10_dir, 'test_batch'))
 	convert(xt, yt, 'test')
