@@ -13,7 +13,7 @@ def _bytes_feature(value):
 def convert(images, labels, name):
 	num = images.shape[0]
 	filename = name + '.tfrecords'
-	writer = tf.python_to.TFRecordWriter(filename)
+	writer = tf.python_io.TFRecordWriter(filename)
 	for i in range(num):
 		img = images[i].tostring()
 		example = tf.train.Example(features=tf.train.Features(feature={
