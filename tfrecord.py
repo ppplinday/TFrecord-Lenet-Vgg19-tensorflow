@@ -29,6 +29,7 @@ def main():
 		f = os.path.join(cifar10_dir, 'data_batch_%d' % (i,))
 		print('open the file: {}'.format(f))
 		x, y = load_CIFAR_batch(f)
+		convert(x, y, 'train')
 
 
 if __name__ == '__main__':
