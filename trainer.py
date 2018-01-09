@@ -7,7 +7,8 @@ import tensorflow.contrib.slim as slim
 from load_data import load_CIFAR10
 from model_lenet import Model_Lenet
 from model_vgg19 import Model_Vgg19
-from data_preprocess import _preprocess, transform, transform_test, data_preprocess
+from tfrecord.py import inputs
+from data_preprocess import _preprocess, transform, transform_test, data_preprocess, label_one_hot
 
 class Trainer:
 
@@ -30,9 +31,11 @@ class Trainer:
 		for epoch in range(self.num_epoch):
 			for iter in range(self.num_sample // self.batch_size):
 				start = iter * self.batch_size
-				batch_x = self.X_train[start:start + self.batch_size]
-				batch_y = self.Y_train[start:start + self.batch_size]
+				# batch_x = self.X_train[start:start + self.batch_size]
+				# batch_y = self.Y_train[start:start + self.batch_size]
+				batch_x, batch_y = inputs('train', 128)
 				batch_x = data_preprocess(batch_x, model=self.name)
+				batch_y = label_one_hot(batch_y, 10)
 
 				self.sess.run(self.model.train_op, feed_dict={self.model.input_image: batch_x, self.model.input_label: batch_y})
 
