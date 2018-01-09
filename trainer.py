@@ -66,6 +66,15 @@ def main(model_name):
 	print(X_train.shape)
 	print(X_test.shape)
 	#return ;
+	
+	print('xxxxx')
+	batch_x, batch_y = inputs('train', 128)
+	batch_x = data_preprocess(batch_x, model=self.name)
+	batch_y = label_one_hot(batch_y, 10)
+	print('yyyyy')
+	print(batch_x)
+	print(batcj_y)
+	return ;
 
 	sess = tf.Session()
 	parameter_path = "checkpoint_" + model_name + "/variable.ckpt"
