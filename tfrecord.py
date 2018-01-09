@@ -34,7 +34,7 @@ def read_and_decode(filename_queue):
 	image = tf.decode_raw(features['image'],tf.uint8)
 	label = tf.cast(features['label'],tf.int32)
 
-	image.set.shape([32*32*3])
+	image.set_shape([32*32*3])
 	image = tf.reshape(image, [32, 32, 3])
 	image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
 
@@ -75,5 +75,5 @@ def test_tfrecords():
 	print(labels.shape)
 
 if __name__ == '__main__':
-	main()
+	#main()
 	test_tfrecords()
