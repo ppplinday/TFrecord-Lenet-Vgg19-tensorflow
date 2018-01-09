@@ -182,8 +182,8 @@ def data_preprocess(X_train, train=True, model='lenet'):
 	x_mean1 = tf.reduce_mean(X_train, axis=(1,2,3))
 	x_mean2 = tf.reduce_mean(X_train, axis=(0,1,2))
 	x_mean = np.mean([x for x in X_train], axis=(0,1,2))
-	print(x_mean1.eval())
-	print(x_mean2.eval())
+	print(x_mean1)
+	print(x_mean2)
 	print(x_mean)
 	x_std = np.std([x for x in X_train], axis=(0,1,2))
 	x_res = []
