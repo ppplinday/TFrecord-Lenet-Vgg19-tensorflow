@@ -46,10 +46,12 @@ def inputs(data_set, batch_size):
 		file = 'train.tfrecords'
 	else:
 		file = 'validation.tfrecords'
-
+	print('tttttt')
 	with tf.name_scope('input') as scope:
 		filename_queue = tf.train.string_input_producer([file], num_epochs=None)
+	print('tttttt11111')
 	image, label = read_and_decode(filename_queue)
+	print('tttttt22222')
 	images, labels = tf.train.batch([image, label],
 		batch_size=batch_size,
 		num_threads = 1,
