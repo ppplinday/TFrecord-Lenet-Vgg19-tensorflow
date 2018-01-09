@@ -179,14 +179,11 @@ def transform_test(inputs, mean, std, random_angle=15., pca_sigma=255., expand_r
 	return img
 
 def data_preprocess(X_train, train=True, model='lenet'):
-	x_mean1 = tf.reduce_mean(X_train, axis=(1,2,3))
-	x_mean2 = tf.reduce_mean(X_train, axis=(0,1,2))
+	X_train = type(tf.Session().run(X_train))
 	x_mean = np.mean([x for x in X_train], axis=(0,1,2))
-	with tf.Session():
-		#print(x_mean1.eval())
-		print(x_mean2.eval())
-	print(x_mean)
 	x_std = np.std([x for x in X_train], axis=(0,1,2))
+	# x_mean = tf.reduce_mean(X_train, axis=(0,1,2))
+	# x_std = tf.reduce_std(X_train, axis=(0,1,2))
 	x_res = []
 	for x in X_train:
 		if model == 'lenet':
