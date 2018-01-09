@@ -69,7 +69,7 @@ def main(model_name):
 	
 	print('xxxxx')
 	batch_x, batch_y = inputs('train', 128)
-	batch_x = data_preprocess(batch_x, model=self.name)
+	batch_x = data_preprocess(batch_x, model='lenet')
 	batch_y = label_one_hot(batch_y, 10)
 	print('yyyyy')
 	print(batch_x)
