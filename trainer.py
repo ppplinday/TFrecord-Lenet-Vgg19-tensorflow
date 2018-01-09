@@ -58,6 +58,7 @@ class Trainer:
 def main(model_name):
 	cifar10_dir = 'cifar-10-batches-py'
 	X_train, Y_train, X_test, Y_test = load_CIFAR10(cifar10_dir)
+	X_test = tf.convert_to_tensor(X_test)
 
 	X_test = data_preprocess(X_test, train=False, model=model_name)
 	print(X_train.shape)
