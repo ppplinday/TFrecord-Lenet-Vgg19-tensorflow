@@ -75,7 +75,7 @@ def main(model_name):
 	batch_y = label_one_hot(batch_y, 10)
 	print('yyyyy')
 	print(batch_x)
-	print(batcj_y)
+	print(batch_y)
 	return ;
 
 	sess = tf.Session()
