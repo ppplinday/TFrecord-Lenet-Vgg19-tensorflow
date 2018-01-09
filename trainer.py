@@ -69,6 +69,8 @@ def main(model_name):
 	
 	print('xxxxx')
 	batch_x, batch_y = inputs('train', 128)
+	batch_x = tf.convert_to_tensor(batch_x)
+	batch_y = tf.convert_to_tensor(batch_y)
 	print(batch_x.shape)
 	print(batch_y.shape)
 	batch_x = data_preprocess(batch_x, model='lenet')
