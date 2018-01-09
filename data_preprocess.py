@@ -179,6 +179,7 @@ def transform_test(inputs, mean, std, random_angle=15., pca_sigma=255., expand_r
 	return img
 
 def data_preprocess(X_train, train=True, model='lenet'):
+	print('111ppppp')
 	with tf.Session():
 		X_train = X_train.eval()
 	print('ppppp')
