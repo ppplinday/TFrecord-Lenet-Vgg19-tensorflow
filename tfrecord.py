@@ -41,6 +41,7 @@ def read_and_decode(filename_queue):
 	return image, label
 
 def inputs(data_set, batch_size):
+	print('welcome to tfrecords')
 	if data_set == 'train':
 		file = 'train.tfrecords'
 	else:
