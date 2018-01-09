@@ -23,17 +23,57 @@ def convert(images, labels, name):
 		writer.write(example.SerializeToString())
 	writer.close()
 
+def read_and_decode(filename_queue):
+	reader = tf.TFRecordReader()
+	_, serialized_example = reader.read(filename_queue)
+	features = tf.parse_single_example(serialized_example,features={
+		'label':tf.FixedLenFeature([],tf.int64),
+		'image':tf.FixedLenFeature([],tf.string)
+		})
+
+	image = tf.decode_raw(features['image'],tf.uint8)
+	label = tf.cast(features['label'],tf.int32)
+
+	image.set.shape([32*32*3])
+	image = tf.reshape(image, [32, 32, 3])
+	image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
+
+	return image, label
+
+def inputs(data_set, batch_size):
+	if data_set == 'train':
+		file = 'train.tfrecords'
+	else:
+		file = 'validation.tfrecords'
+
+	with tf.name_scope('input') as scope:
+		filename_queue = tf.train.string_input_producer([file], num_epochs=None)
+	image, label = read_and_decode(filename_queue)
+	images, labels = tf.train.batch([image, label],
+		batch_size=batch_size,
+		num_threads = 1,
+		capacity = 10 * batch_size,
+		)
+
+	return images, labels
+
 def main():
 	cifar10_dir = 'cifar-10-batches-py'
-	# for i in range(1, 6):
-	# 	f = os.path.join(cifar10_dir, 'data_batch_%d' % (i,))
-	# 	print('open the file: {}'.format(f))
-	# 	x, y = load_CIFAR_batch(f)
-	# 	convert(x, y, 'train')
+	for i in range(1, 6):
+		f = os.path.join(cifar10_dir, 'data_batch_%d' % (i,))
+		print('open the file: {}'.format(f))
+		x, y = load_CIFAR_batch(f)
+		convert(x, y, 'train')
 
 	xt, yt = load_CIFAR_batch(os.path.join(cifar10_dir, 'test_batch'))
 	convert(xt, yt, 'test')
 	print('finish tfrecord!')
 
+def test_tfrecords():
+	images, labels = inputs('train', 128)
+	print(images.shape)
+	print(labels.shape)
+
 if __name__ == '__main__':
 	main()
+	test_tfrecords()
