@@ -76,8 +76,9 @@ def test_tfrecords():
 	images, labels = inputs('train', 128)
 	print(images.shape)
 	print(labels.shape)
-	print(images)
-	print(labels)
+	with tf.Session():
+		print(images.eval())
+		print(labels.eval())
 
 if __name__ == '__main__':
 	#main()
