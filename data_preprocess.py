@@ -2,6 +2,7 @@ import six
 import random
 import numpy as np
 from scipy.misc import imresize
+import tensorflow as tf
 from skimage import transform as skimage_transform
 
 def rotate_reshape(images, output_shape):
