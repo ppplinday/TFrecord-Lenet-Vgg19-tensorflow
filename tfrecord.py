@@ -76,6 +76,8 @@ def test_tfrecords():
 	images, labels = inputs('train', 128)
 	print(images.shape)
 	print(labels.shape)
+	print(images)
+	print(labels)
 
 if __name__ == '__main__':
 	#main()
