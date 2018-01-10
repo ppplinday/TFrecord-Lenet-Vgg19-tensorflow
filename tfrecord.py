@@ -78,7 +78,7 @@ def main1():
 	for i in range(1, 6):
 		f = os.path.join(cifar10_dir, 'data_batch_%d' % (i,))
 		print('open the file: {}'.format(f))
-		x, y = load_CIFAR_batch(f)
+		images, labels = load_CIFAR_batch(f)
 		for i in range(10000):
 			img = images[i].tostring()
 			example = tf.train.Example(features=tf.train.Features(feature={
