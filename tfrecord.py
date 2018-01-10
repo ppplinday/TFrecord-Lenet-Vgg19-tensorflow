@@ -79,9 +79,9 @@ def test_tfrecords():
 		coord = tf.train.Coordinator()
 		threads = tf.train.start_queue_runners(sess=sess, coord=coord)
 		images, labels = inputs('train', 128)
-		print(images)
+		print(images.eval())
 		print(labels)
-		
+
 
 if __name__ == '__main__':
 	#main()
