@@ -88,9 +88,17 @@ def main1():
 			writer.write(example.SerializeToString())
 	writer.close()
 
-	# xt, yt = load_CIFAR_batch(os.path.join(cifar10_dir, 'test_batch'))
-	# convert(xt, yt, 'test')
-	# print('finish tfrecord!')
+	writer = tf.python_io.TFRecordWriter('test.tfrecords')
+	images, labels = load_CIFAR_batch(os.path.join(cifar10_dir, 'test_batch'))
+	for i in range(10000):
+		img = images[i].tostring()
+		example = tf.train.Example(features=tf.train.Features(feature={
+			'label':_int64_feature(int(labels[i])),
+			'image':_bytes_feature(img)
+			}))
+		writer.write(example.SerializeToString())
+	writer.close()
+	print('finish tfrecord!')
 
 def test_tfrecords():
 	
