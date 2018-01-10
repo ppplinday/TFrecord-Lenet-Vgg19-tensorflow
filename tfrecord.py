@@ -80,12 +80,12 @@ def main1():
 		print('open the file: {}'.format(f))
 		x, y = load_CIFAR_batch(f)
 		for i in range(10000):
-		img = images[i].tostring()
-		example = tf.train.Example(features=tf.train.Features(feature={
-			'label':_int64_feature(int(labels[i])),
-			'image':_bytes_feature(img)
-			}))
-		writer.write(example.SerializeToString())
+			img = images[i].tostring()
+			example = tf.train.Example(features=tf.train.Features(feature={
+				'label':_int64_feature(int(labels[i])),
+				'image':_bytes_feature(img)
+				}))
+			writer.write(example.SerializeToString())
 	writer.close()
 
 	# xt, yt = load_CIFAR_batch(os.path.join(cifar10_dir, 'test_batch'))
