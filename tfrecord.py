@@ -72,6 +72,26 @@ def main():
 	convert(xt, yt, 'test')
 	print('finish tfrecord!')
 
+def main1():
+	cifar10_dir = 'cifar-10-batches-py'
+	writer = tf.python_io.TFRecordWriter('train.tfrecords')
+	for i in range(1, 6):
+		f = os.path.join(cifar10_dir, 'data_batch_%d' % (i,))
+		print('open the file: {}'.format(f))
+		x, y = load_CIFAR_batch(f)
+		for i in range(10000):
+		img = images[i].tostring()
+		example = tf.train.Example(features=tf.train.Features(feature={
+			'label':_int64_feature(int(labels[i])),
+			'image':_bytes_feature(img)
+			}))
+		writer.write(example.SerializeToString())
+	writer.close()
+
+	# xt, yt = load_CIFAR_batch(os.path.join(cifar10_dir, 'test_batch'))
+	# convert(xt, yt, 'test')
+	# print('finish tfrecord!')
+
 def test_tfrecords():
 	
 	with tf.Session() as sess:
@@ -85,4 +105,5 @@ def test_tfrecords():
 
 if __name__ == '__main__':
 	#main()
-	test_tfrecords()
+	main1()
+	#test_tfrecords()
