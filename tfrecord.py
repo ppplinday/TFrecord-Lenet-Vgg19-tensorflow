@@ -101,13 +101,27 @@ def main1():
 	print('finish tfrecord!')
 
 def test_tfrecords():
-	
+	reader = tf.TFRecordReader()
+	file = 'train.tfrecords'
+	filename_queue = tf.train.string_input_producer([file], num_epochs=None)
+	_, serialized_example = reader.read(filename_queue)
+	features = tf.parse_single_example(serialized_example,features={
+		'label':tf.FixedLenFeature([],tf.int64),
+		'image':tf.FixedLenFeature([],tf.string)
+		})
+
+	image = tf.decode_raw(features['image'],tf.uint8)
+	label = tf.cast(features['label'],tf.int32)
+
+	image.set_shape([32*32*3])
+	image = tf.reshape(image, [32, 32, 3])
+	image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
 	with tf.Session() as sess:
-		#sess.run(tf.initialize_all_variables())
+		sess.run(tf.initialize_all_variables())
 		coord = tf.train.Coordinator()
 		threads = tf.train.start_queue_runners(sess=sess, coord=coord)
-		images, labels = inputs('train', 128)
-		print(images.eval())
+		#images, labels = inputs('train', 128)
+		print(images)
 		print(labels)
 
 
