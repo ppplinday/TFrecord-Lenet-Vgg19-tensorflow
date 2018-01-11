@@ -61,34 +61,40 @@ def inputs(data_set, batch_size):
 	return images, labels
 
 def main():
+	image_placeholder = tf.placeholder(tf.uint8)
+	encoded_image = tf.image.encode_png(image_placeholder)
+
 	cifar10_dir = 'cifar-10-batches-py'
-	writer = tf.python_io.TFRecordWriter('train.tfrecords')
-	for i in range(1, 6):
-		f = os.path.join(cifar10_dir, 'data_batch_%d' % (i,))
-		print('open the file: {}'.format(f))
-		images, labels = load_CIFAR_batch(f)
+	
+	with tf.Session() as sess:
+		writer = tf.python_io.TFRecordWriter('train.tfrecords')
+		for i in range(1, 6):
+			f = os.path.join(cifar10_dir, 'data_batch_%d' % (i,))
+			print('open the file: {}'.format(f))
+			images, labels = load_CIFAR_batch(f)
+			for i in range(10000):
+				png_string = sess.run(encoded_image, feed_dict={image_placeholder: image})
+				#img = images[i].tostring()
+				example = tf.train.Example(features=tf.train.Features(feature={
+					'label':_int64_feature(int(labels[i])),
+					'image':_bytes_feature(png_string)
+					}))
+				writer.write(example.SerializeToString())
+		writer.close()
+
+		writer = tf.python_io.TFRecordWriter('test.tfrecords')
+		print('open the test file')
+		images, labels = load_CIFAR_batch(os.path.join(cifar10_dir, 'test_batch'))
 		for i in range(10000):
-			if i == 3222:
-				print(images[i].shape)
-			img = images[i].tostring()
+			png_string = sess.run(encoded_image, feed_dict={image_placeholder: image})
+			#img = images[i].tostring()
 			example = tf.train.Example(features=tf.train.Features(feature={
 				'label':_int64_feature(int(labels[i])),
-				'image':_bytes_feature(img)
+				'image':_bytes_feature(png_string)
 				}))
 			writer.write(example.SerializeToString())
-	writer.close()
+		writer.close()
 
-	writer = tf.python_io.TFRecordWriter('test.tfrecords')
-	print('open the test file')
-	images, labels = load_CIFAR_batch(os.path.join(cifar10_dir, 'test_batch'))
-	for i in range(10000):
-		img = images[i].tostring()
-		example = tf.train.Example(features=tf.train.Features(feature={
-			'label':_int64_feature(int(labels[i])),
-			'image':_bytes_feature(img)
-			}))
-		writer.write(example.SerializeToString())
-	writer.close()
 	print('finish tfrecord!')
 
 def test_tfrecords():
