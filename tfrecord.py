@@ -107,18 +107,19 @@ def test_tfrecords():
 		'image':tf.FixedLenFeature([],tf.string)
 		})
 
-	image = tf.decode_raw(features['image'],tf.uint8)
+	image = tf.image.decode_png(features['image'], channels=3)
+	#image = tf.decode_raw(features['image'],tf.uint8)
 	label = tf.cast(features['label'],tf.int32)
 
-	image.set_shape([8*32*32*3])
-	image = tf.reshape(image, [-1, 32, 32, 3])
-	image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
+	print(image)
 
 	images, labels = tf.train.batch([image, label],
 		batch_size=128,
 		num_threads = 1,
 		capacity = 10 * 128,
 		)
+
+	images_batch = tf.cast(images_batch, tf.float32)
 	print(image.shape)
 	print(label.shape)
 	with tf.Session() as sess:
@@ -138,5 +139,5 @@ def test_tfrecords():
 
 
 if __name__ == '__main__':
-	main()
-	#test_tfrecords()
+	#main()
+	test_tfrecords()
