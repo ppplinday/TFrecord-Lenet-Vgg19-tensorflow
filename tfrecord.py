@@ -134,6 +134,8 @@ def test_tfrecords():
 		print('rrrrrr')
 		print(a.shape)
 		print(b.shape)
+		coord.request_stop()
+		coord.join(threads)
 
 
 if __name__ == '__main__':
