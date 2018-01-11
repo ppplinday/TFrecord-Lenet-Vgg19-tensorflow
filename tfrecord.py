@@ -121,8 +121,8 @@ def test_tfrecords():
 		coord = tf.train.Coordinator()
 		threads = tf.train.start_queue_runners(sess=sess, coord=coord)
 		#images, labels = inputs('train', 128)
-		print(images)
-		print(labels)
+		print(image)
+		print(label)
 
 
 if __name__ == '__main__':
