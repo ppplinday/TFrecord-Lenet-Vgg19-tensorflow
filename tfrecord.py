@@ -108,6 +108,7 @@ def test_tfrecords():
 		})
 
 	image = tf.image.decode_png(features['image'], channels=3)
+	image = tf.image.resize_image_with_crop_or_pad(image, 32, 32)
 	#image = tf.decode_raw(features['image'],tf.uint8)
 	label = tf.cast(features['label'],tf.int32)
 
@@ -116,7 +117,7 @@ def test_tfrecords():
 	images, labels = tf.train.batch([image, label],
 		batch_size=128,
 		num_threads = 1,
-		#capacity = 10 * 128,
+		capacity = 10 * 128,
 		)
 
 	images_batch = tf.cast(images_batch, tf.float32)
