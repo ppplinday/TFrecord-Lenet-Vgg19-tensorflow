@@ -118,9 +118,9 @@ def test_tfrecords():
 	image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
 
 	images, labels = tf.train.batch([image, label],
-		batch_size=batch_size,
+		batch_size=128,
 		num_threads = 1,
-		capacity = 10 * batch_size,
+		capacity = 10 * 128,
 		)
 
 	with tf.Session() as sess:
