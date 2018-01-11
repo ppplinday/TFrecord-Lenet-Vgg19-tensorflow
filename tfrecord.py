@@ -73,7 +73,7 @@ def main():
 			print('open the file: {}'.format(f))
 			images, labels = load_CIFAR_batch(f)
 			for i in range(10000):
-				png_string = sess.run(encoded_image, feed_dict={image_placeholder: image})
+				png_string = sess.run(encoded_image, feed_dict={image_placeholder: images[i]})
 				#img = images[i].tostring()
 				example = tf.train.Example(features=tf.train.Features(feature={
 					'label':_int64_feature(int(labels[i])),
@@ -86,7 +86,7 @@ def main():
 		print('open the test file')
 		images, labels = load_CIFAR_batch(os.path.join(cifar10_dir, 'test_batch'))
 		for i in range(10000):
-			png_string = sess.run(encoded_image, feed_dict={image_placeholder: image})
+			png_string = sess.run(encoded_image, feed_dict={image_placeholder: images[i]})
 			#img = images[i].tostring()
 			example = tf.train.Example(features=tf.train.Features(feature={
 				'label':_int64_feature(int(labels[i])),
