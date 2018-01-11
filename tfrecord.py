@@ -120,7 +120,7 @@ def test_tfrecords():
 		capacity = 10 * 128,
 		)
 
-	images_batch = tf.cast(images_batch, tf.float32)
+	images = tf.cast(images, tf.float32)
 	print(image.shape)
 	print(label.shape)
 	with tf.Session() as sess:
