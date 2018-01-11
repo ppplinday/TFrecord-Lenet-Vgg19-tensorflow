@@ -113,7 +113,7 @@ def test_tfrecords():
 	image = tf.decode_raw(features['image'],tf.uint8)
 	label = tf.cast(features['label'],tf.int32)
 
-	image.set_shape([-1, 32*32*3])
+	image.set_shape([8*32*32*3])
 	image = tf.reshape(image, [-1, 32, 32, 3])
 	image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
 
