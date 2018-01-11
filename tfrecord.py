@@ -134,6 +134,8 @@ def test_tfrecords():
 		print('rrrrrr')
 		print(a.shape)
 		print(b.shape)
+		print(a)
+		print(b)
 		coord.request_stop()
 		coord.join(threads)
 
