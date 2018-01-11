@@ -127,5 +127,5 @@ def test_tfrecords():
 
 if __name__ == '__main__':
 	#main()
-	main1()
-	#test_tfrecords()
+	#main1()
+	test_tfrecords()
