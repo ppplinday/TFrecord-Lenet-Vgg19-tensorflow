@@ -116,7 +116,7 @@ def test_tfrecords():
 	images, labels = tf.train.batch([image, label],
 		batch_size=128,
 		num_threads = 1,
-		capacity = 10 * 128,
+		#capacity = 10 * 128,
 		)
 
 	images_batch = tf.cast(images_batch, tf.float32)
