@@ -68,6 +68,8 @@ def main():
 		print('open the file: {}'.format(f))
 		images, labels = load_CIFAR_batch(f)
 		for i in range(10000):
+			if i == 3222:
+				print(images[i].shape)
 			img = images[i].tostring()
 			example = tf.train.Example(features=tf.train.Features(feature={
 				'label':_int64_feature(int(labels[i])),
@@ -80,8 +82,6 @@ def main():
 	print('open the test file')
 	images, labels = load_CIFAR_batch(os.path.join(cifar10_dir, 'test_batch'))
 	for i in range(10000):
-		if i == 3222:
-			print(images.shape)
 		img = images[i].tostring()
 		example = tf.train.Example(features=tf.train.Features(feature={
 			'label':_int64_feature(int(labels[i])),
