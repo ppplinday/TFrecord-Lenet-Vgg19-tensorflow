@@ -116,6 +116,13 @@ def test_tfrecords():
 	image.set_shape([32*32*3])
 	image = tf.reshape(image, [32, 32, 3])
 	image = tf.cast(image, tf.float32) * (1. / 255) - 0.5
+
+	images, labels = tf.train.batch([image, label],
+		batch_size=batch_size,
+		num_threads = 1,
+		capacity = 10 * batch_size,
+		)
+
 	with tf.Session() as sess:
 		sess.run(tf.initialize_all_variables())
 		coord = tf.train.Coordinator()
@@ -123,8 +130,9 @@ def test_tfrecords():
 		a,b = sess.run([image, label])
 		print(image)
 		print(label)
-		print(a)
-		print(b)
+		print('rrrrrr')
+		print(a.shape)
+		print(b.shape)
 
 
 if __name__ == '__main__':
