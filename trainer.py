@@ -7,7 +7,7 @@ import tensorflow.contrib.slim as slim
 from load_data import load_CIFAR10
 from model_lenet import Model_Lenet
 from model_vgg19 import Model_Vgg19
-from tfrecord import inputs
+from tfrecord import input
 from data_preprocess import _preprocess, transform, transform_test, data_preprocess, label_one_hot
 
 class Trainer:
