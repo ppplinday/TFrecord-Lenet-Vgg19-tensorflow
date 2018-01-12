@@ -119,13 +119,12 @@ def test_tfrecords():
 		)
 
 	images = tf.cast(images, tf.float32)
-	print(images.shape)
-	print(labels.shape)
+	
 	with tf.Session() as sess:
 		#sess.run(tf.initialize_all_variables())
 		coord = tf.train.Coordinator()
 		threads = tf.train.start_queue_runners(sess=sess, coord=coord)
-		a,b = sess.run([image, label])
+		a,b = sess.run([images, labels])
 		print('rrrrrr')
 		print(a.shape)
 		print(b.shape)
