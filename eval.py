@@ -51,9 +51,9 @@ def main(model_name):
 		threads = tf.train.start_queue_runners(sess=sess, coord=coord)
 
 		for i in range(X_test.shape[0]):
+			print(i)
 			X_test, Y_test = sess.run([images, labels])
-			print(X_test)
-			print(Y_test)
+			X_test = data_preprocess(X_test, train=False, model=model_name)
 			Y_test = label_one_hot(Y_test, 10)
 			accurary = sess.run([model.train_accuracy], 
 				feed_dict={model.input_image: X_test, model.input_label: Y_test})
