@@ -8,7 +8,7 @@ from load_data import load_CIFAR10
 from model_lenet import Model_Lenet
 from model_vgg19 import Model_Vgg19
 from tfrecord import input
-from data_preprocess import _preprocess, transform, transform_test, data_preprocess
+from data_preprocess import _preprocess, transform, transform_test, data_preprocess, label_one_hot
 import config
 
 def main(model_name):
@@ -52,6 +52,7 @@ def main(model_name):
 			X_test, Y_test = sess.run([images, labels])
 			print(X_test)
 			print(Y_test)
+			Y_test = label_one_hot(Y_test, 10)
 			accurary = sess.run([model.train_accuracy], 
 				feed_dict={model.input_image: X_test, model.input_label: Y_test})
 			sum += accurary[0]
