@@ -100,7 +100,26 @@ def input(data_set, batch_size):
 	else:
 		file = 'test.tfrecords'
 
+	filename_queue = tf.train.string_input_producer([file], num_epochs=None)
+	_, serialized_example = reader.read(filename_queue)
+	features = tf.parse_single_example(serialized_example,features={
+		'label':tf.FixedLenFeature([],tf.int64),
+		'image':tf.FixedLenFeature([],tf.string)
+		})
 
+	image = tf.image.decode_png(features['image'], channels=3)
+	image = tf.image.resize_image_with_crop_or_pad(image, 32, 32)
+	label = tf.cast(features['label'],tf.int32)
+
+	images, labels = tf.train.batch([image, label],
+		batch_size=128,
+		num_threads = 1,
+		capacity = 10 * 128,
+		)
+
+	images = tf.cast(images, tf.float32)
+
+	return images, labels
 
 if __name__ == '__main__':
 	#main()

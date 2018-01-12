@@ -23,9 +23,8 @@ def main(model_name):
 	elif model_name == "vgg19":
 		print('loaded the vgg19 model')
 		model = Model_Vgg19()
-		X_test = np.array(X_test)
-		X_test = np.reshape(X_test, (10000, 3072))
-		X_test = np.array(_preprocess(X_test))
+		X_test = data_preprocess(X_test, train=False, model=model_name)
+		print(X_test.shape)
 	else:
 		print('cannot find the checkpoint!')
 		return ;
