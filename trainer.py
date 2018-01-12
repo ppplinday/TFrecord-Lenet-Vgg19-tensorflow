@@ -36,8 +36,8 @@ class Trainer:
 				batch_x, batch_y = self.sess.run([self.X_train, self.Y_train])
 				batch_x = data_preprocess(batch_x, model=self.name)
 				batch_y = label_one_hot(batch_y, 10)
-				print(batch_x.shape)
-				print(batch_y.shape)
+				# print(batch_x.shape)
+				# print(batch_y.shape)
 
 				self.sess.run(self.model.train_op, feed_dict={self.model.input_image: batch_x, self.model.input_label: batch_y})
 

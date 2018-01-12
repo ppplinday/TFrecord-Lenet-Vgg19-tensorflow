@@ -1,4 +1,7 @@
-learning_rate = 0.001
+#vgg
+#learning_rate = 0.001
+#lenet
+learning_rate = 0.01
 batch_size = 128
 num_epoch = 500
 num_sample = 50000
