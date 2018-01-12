@@ -82,6 +82,7 @@ def test_tfrecords():
 		print(a)
 		print(b)
 		c = data_preprocess(a)
+		print(c.shape)
 		coord.request_stop()
 		coord.join(threads)
 
