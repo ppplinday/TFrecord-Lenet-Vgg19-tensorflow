@@ -112,9 +112,9 @@ def input(data_set, batch_size):
 	label = tf.cast(features['label'],tf.int32)
 
 	images, labels = tf.train.batch([image, label],
-		batch_size=128,
+		batch_size=batch_size,
 		num_threads = 1,
-		capacity = 10 * 128,
+		capacity = batch_size,
 		)
 
 	images = tf.cast(images, tf.float32)
