@@ -44,7 +44,7 @@ def main(model_name):
 	threads = tf.train.start_queue_runners(sess=sess, coord=coord)
 	sum = 0.0;
 	for i in range(X_test.shape[0]):
-		X_test, Y_test = tf.Session.run([images, labels])
+		X_test, Y_test = tf.Session().run([images, labels])
 		accurary = sess.run([model.train_accuracy], 
 			feed_dict={model.input_image: X_test, model.input_label: Y_test})
 		sum += accurary[0]
