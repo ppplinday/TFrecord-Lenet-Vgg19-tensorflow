@@ -34,7 +34,7 @@ class Trainer:
 				# batch_x = self.X_train[start:start + self.batch_size]
 				# batch_y = self.Y_train[start:start + self.batch_size]
 				print('xxxxx')
-				batch_x, batch_y = inputs('train', 128)
+				batch_x, batch_y = self.sess.run([self.X_train, self.Y_train])
 				batch_x = data_preprocess(batch_x, model=self.name)
 				batch_y = label_one_hot(batch_y, 10)
 				print('yyyyy')
@@ -67,43 +67,34 @@ def main(model_name):
 	print(X_test.shape)
 	#return ;
 	
-	print('xxxxx')
-	batch_x, batch_y = inputs('train', 128)
-	batch_x = tf.convert_to_tensor(batch_x)
-	batch_y = tf.convert_to_tensor(batch_y)
-	print(batch_x.shape)
-	print(batch_y.shape)
-	batch_x = data_preprocess(batch_x, model='lenet')
-	batch_y = label_one_hot(batch_y, 10)
-	print('yyyyy')
-	print(batch_x)
-	print(batch_y)
-	return ;
+	X_train, Y_train = input('train', 128)
+	with tf.Session() as sess:
+		coord = tf.train.Coordinator()
+		threads = tf.train.start_queue_runners(sess=sess, coord=coord)
 
-	sess = tf.Session()
-	parameter_path = "checkpoint_" + model_name + "/variable.ckpt"
-	path_exists = "checkpoint_" + model_name
+		parameter_path = "checkpoint_" + model_name + "/variable.ckpt"
+		path_exists = "checkpoint_" + model_name
 
-	if model_name == "lenet":
-		print('begin to train lenet model')
-		model = Model_Lenet()
-	elif model_name == "vgg19":
-		print('begin to train vgg19 model')
-		model = Model_Vgg19()
-	else:
-		print('we do not have this model')
-		return ;
+		if model_name == "lenet":
+			print('begin to train lenet model')
+			model = Model_Lenet()
+		elif model_name == "vgg19":
+			print('begin to train vgg19 model')
+			model = Model_Vgg19()
+		else:
+			print('we do not have this model')
+			return ;
 
-	saver = tf.train.Saver()
-	if os.path.exists(path_exists):
-		saver.restore(sess, parameter_path)
-		print('loaded the weight')
-	else:
-		sess.run(tf.global_variables_initializer())
-		print('init all the weight')
+		saver = tf.train.Saver()
+		if os.path.exists(path_exists):
+			saver.restore(sess, parameter_path)
+			print('loaded the weight')
+		else:
+			sess.run(tf.global_variables_initializer())
+			print('init all the weight')
 
-	train = Trainer(model, sess, X_train, Y_train, X_test, Y_test, model_name)
-	save_path = saver.save(sess, parameter_path)
+		train = Trainer(model, sess, X_train, Y_train, X_test, Y_test, model_name)
+		save_path = saver.save(sess, parameter_path)
 
 
 if __name__ == '__main__':
