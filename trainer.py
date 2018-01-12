@@ -64,7 +64,7 @@ def main(model_name):
 	X_test = data_preprocess(X_test, train=False, model=model_name)
 	print(X_train.shape)
 	print(X_test.shape)
-	#return ;
+	return ;
 	
 	X_train, Y_train = input('train', 128)
 	with tf.Session() as sess:

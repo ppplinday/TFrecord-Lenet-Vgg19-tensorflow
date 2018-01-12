@@ -122,5 +122,5 @@ def input(data_set, batch_size):
 	return images, labels
 
 if __name__ == '__main__':
-	#main()
+	main()
 	test_tfrecords()
