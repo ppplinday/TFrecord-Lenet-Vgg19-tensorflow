@@ -2,7 +2,7 @@ import os
 import numpy as np
 import pickle as p
 import tensorflow as tf
-from load_data import load_CIFAR_batch
+from load_data import load_CIFAR_batch, load_CIFAR10
 
 def _int64_feature(value):
 	return tf.train.Feature(int64_list=tf.train.Int64List(value=[value]))
