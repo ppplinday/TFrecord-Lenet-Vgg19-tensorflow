@@ -168,8 +168,8 @@ def transform(inputs, mean, std, random_angle=15., pca_sigma=255., expand_ratio=
 		img = random_flip(img)
 		if expand_ratio > 1:
 			img = random_expand(img, expand_ratio)
-		print(crop_size)
-		img = random_crop(img, crop_size)
+		
+	img = random_crop(img, crop_size)
 
 	return img
 
