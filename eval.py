@@ -45,10 +45,14 @@ def main(model_name):
 	sum = 0.0;
 	for i in range(X_test.shape[0]):
 		X_test, Y_test = tf.Session().run([images, labels])
+		print(X_test)
+		print(Y_test)
 		accurary = sess.run([model.train_accuracy], 
 			feed_dict={model.input_image: X_test, model.input_label: Y_test})
 		sum += accurary[0]
 	print('Accurary: {}'.format(sum / X_test.shape[0]))
+	coord.request_stop()
+	coord.join(threads)
 
 if __name__ == "__main__":
 	model_name = sys.argv[1]
