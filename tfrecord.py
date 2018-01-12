@@ -112,8 +112,6 @@ def test_tfrecords():
 	#image = tf.decode_raw(features['image'],tf.uint8)
 	label = tf.cast(features['label'],tf.int32)
 
-	print(image)
-
 	images, labels = tf.train.batch([image, label],
 		batch_size=128,
 		num_threads = 1,
@@ -121,15 +119,13 @@ def test_tfrecords():
 		)
 
 	images = tf.cast(images, tf.float32)
-	print(image.shape)
-	print(label.shape)
+	print(images.shape)
+	print(labels.shape)
 	with tf.Session() as sess:
-		sess.run(tf.initialize_all_variables())
+		#sess.run(tf.initialize_all_variables())
 		coord = tf.train.Coordinator()
 		threads = tf.train.start_queue_runners(sess=sess, coord=coord)
 		a,b = sess.run([image, label])
-		print(image)
-		print(label)
 		print('rrrrrr')
 		print(a.shape)
 		print(b.shape)
@@ -137,6 +133,11 @@ def test_tfrecords():
 		print(b)
 		coord.request_stop()
 		coord.join(threads)
+
+	cifar10_dir = 'cifar-10-batches-py'
+	X_train, Y_train, X_test, Y_test = load_CIFAR10(cifar10_dir)
+	print(X_train[0])
+	print(Y_train[0])
 
 
 if __name__ == '__main__':
