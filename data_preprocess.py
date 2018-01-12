@@ -185,10 +185,11 @@ def data_preprocess(X_train, train=True, model='lenet'):
 	for x in X_train:
 		if model == 'lenet':
 			img = transform(x, x_mean, x_std, expand_ratio=1.2, crop_size=(28,28), train=train)
-			print(yyy)
+			print('yyy')
 		else:
 			img = transform(x, x_mean, x_std, expand_ratio=1.2, crop_size=(32,32), train=train)
-			print(xxx)
+			print('xxx')
+		print(img.shape)
 		print(model)
 		x_res.append(img)
 	x_res = np.array(x_res)
