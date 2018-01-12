@@ -40,6 +40,8 @@ def main(model_name):
 	# print('Accurary: {}'.format(sum / X_test.shape[0]))
 	
 	images, labels = input('test', 1)
+	print(images.shape)
+	print(labels.shape)
 	sum = 0.0;
 	with tf.Session() as sess:
 		saver = tf.train.Saver()
