@@ -6,27 +6,27 @@ My code shows how to write tfrecord, data argument, train, eval and model
 
 For building tfrecord
 
-    ```shell
+    ```
     python3 tfrecord.py
     ```
 
 For training
 
-    ```shell
+    ```
     python3 train.py tenet
     ```
 
-    ```shell
+    ```
     python3 train.py vgg19
     ```
 
 For eval
 
-    ```shell
+    ```
     python3 eval.py tenet
     ```
 
-    ```shell
+    ```
     python3 eavl.py vgg19
     ```
 
