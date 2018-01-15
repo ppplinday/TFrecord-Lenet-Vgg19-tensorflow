@@ -6,9 +6,7 @@ My code shows how to write tfrecord, data argument, train, eval and model
 
 For building tfrecord
 
-    ```
     python3 tfrecord.py
-    ```
 
 For training
 
