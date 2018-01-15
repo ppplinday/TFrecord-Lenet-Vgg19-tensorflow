@@ -10,22 +10,14 @@ For building tfrecord
 
 For training
 
-    ```
     python3 train.py tenet
-    ```
 
-    ```
     python3 train.py vgg19
-    ```
+
 
 For eval
-
-    ```
     python3 eval.py tenet
-    ```
 
-    ```
     python3 eavl.py vgg19
-    ```
 
 You also can change the config in config.py
